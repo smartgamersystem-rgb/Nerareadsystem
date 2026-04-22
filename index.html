@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>NERA Oracle 2026·</title>
+<title>NERA Oracle 2026 · ChatGPT Edition</title>
 <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700;900&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&display=swap" rel="stylesheet">
 <style>
 :root{
@@ -692,40 +692,45 @@ function showCard(idx){
 }
 
 async function interpretar(){
-  if(!tiradaActual.length){ alert(t().alertDraw); return; }
-  const pregunta = document.getElementById('pregunta').value.trim() || t().generalReading;
-  const nombres = tiradaActual.map(c=>`${ARCANAS[c-1].name} (${ARCANAS[c-1].title})`).join(' · ');
-  const res=document.getElementById('resultado');
-  const resT=document.getElementById('resultadoTexto');
+  const pregunta = document.getElementById('pregunta').value.trim();
+
+  if(!tiradaActual.length){
+    alert('Primero tira las cartas');
+    return;
+  }
+
+  const res = document.getElementById('resultado');
+  const resT = document.getElementById('resultadoTexto');
+
   res.classList.add('visible');
-  resT.textContent='';
-  setLoading(resT);
+  resT.innerHTML = '<div class="loading"><span></span><span></span><span></span></div>';
+
+  const nombres = tiradaActual.map(c =>
+    ARCANAS[c-1].name + ' (' + ARCANAS[c-1].title + ')'
+  );
 
   try{
-    const text = await openAIChat(t().tarotPrompt(pregunta, nombres));
-    resT.innerHTML = text.replace(/\n/g,'<br>');
-  }catch(err){
-    resT.textContent = t().apiError;
+    const r = await fetch('/api/tarot', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        pregunta: pregunta || 'Lectura general',
+        cartas: nombres
+      })
+    });
+
+    const data = await r.json();
+
+    if(!r.ok){
+      throw new Error(data.error || 'Error al conectar con la API');
+    }
+
+    resT.innerHTML = (data.resultado || 'Sin respuesta').replace(/\n/g, '<br>');
+  }catch(e){
+    resT.innerHTML = 'Error: ' + e.message;
   }
-  document.getElementById('copyTarotRow').classList.remove('hidden');
-  res.scrollIntoView({behavior:'smooth', block:'nearest'});
-}
 
-function copyTarot(){
-  navigator.clipboard.writeText(document.getElementById('resultadoTexto').innerText);
-  const b=document.getElementById('btnCopiar');
-  const prev=b.textContent;
-  b.textContent = idioma==='ES' ? '✓ Copiado' : '✓ Copied';
-  setTimeout(()=> b.textContent = t().btnCopyResult, 1800);
-}
-
-function resetear(){
-  tiradaActual=[];
-  document.getElementById('cartas').innerHTML='';
-  document.getElementById('resultado').classList.remove('visible');
-  document.getElementById('resultadoTexto').innerHTML='';
-  document.getElementById('pregunta').value='';
-  document.getElementById('copyTarotRow').classList.add('hidden');
+  document.getElementById('copyTarotRow').style.display='flex';
 }
 
 applyLanguage();
