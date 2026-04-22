@@ -43,7 +43,7 @@ Maximum length: 220 words.
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        "Authorization": `Bearer ${env.OPENAI_API_KEY}`
+        "Authorization": `Bearer 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
       },
       body: JSON.stringify({
         model: "gpt-4o-mini",
