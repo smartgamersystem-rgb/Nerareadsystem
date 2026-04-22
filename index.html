@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>NERA Oracle 2026 · </title>
+<title>NERA Oracle 2026</title>
 <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700;900&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&display=swap" rel="stylesheet">
 <style>
 :root{
@@ -186,7 +186,7 @@ select{-webkit-appearance:none;appearance:none}
     <h1>NERA Oracle</h1>
     <p class="subtitle" id="headerSubtitle">New Earth Role Activation · 2026</p>
     <div class="topbar">
-      <span class="pill"><span class="status-dot"></span><span id="statusText">Nera Cloud active</span></span>
+      <span class="pill"><span class="status-dot"></span><span id="statusText">Lectura IA activa</span></span>
       <button class="lang-btn" id="langBtn" onclick="toggleLanguage()">🌐 ES</button>
     </div>
   </header>
@@ -304,15 +304,6 @@ select{-webkit-appearance:none;appearance:none}
 </div>
 
 <script>
-// =========================================================
-// PEGA TU API AQUÍ. NO SE MUESTRA EN PANTALLA.
-// =========================================================
-const OPENAI_API_KEY = "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";
-const OPENAI_MODEL = "gpt-4.1-mini";
-
-// =========================================================
-// DATOS DE LOS ARCANOS
-// =========================================================
 const ARCANAS = [
   {n:"0", deity:"Khepra", name:"Khepra", role:"Oracle", title:"The Pioneer", essence:"You stand at the edge of something you cannot yet name. The path reveals itself only by walking it.", func:"You open doors that did not exist before you arrived. You enter the uncharted node and signal it is safe to build here.", activation:"Step forward. The ground will appear.", ancestors:"The Rainbow Warriors were told they would not know each other by face, but by willingness to begin. This is the beginning the elders foretold.", element:"Air · East"},
   {n:"I", deity:"Thoth", name:"Thoth", role:"Builder", title:"The Architect of Reality", essence:"Your mind is not just a tool. It is a force. What you think, you build. What you speak, you create.", func:"You design systems and frameworks that translate vision into lived reality. You build what others will inhabit.", activation:"Build what does not exist yet. You are the one who can.", ancestors:"The ancient ones said the builders of the New Earth would carry the language of creation itself. Your mind is that instrument.", element:"Air · East"},
@@ -322,10 +313,10 @@ const ARCANAS = [
   {n:"V", deity:"Amun", name:"Amun", role:"Oracle", title:"The Keeper of Transmission", essence:"You carry something ancient and make it alive again. Wisdom is only wisdom when it is transmitted.", func:"You hold the sacred knowledge that must not be lost in the transition: ceremony, initiation, deep teachings.", activation:"Teach what you know. Pass the flame.", ancestors:"The Rainbow Warrior prophecy was carried not in books, but through transmission, elder to initiate, fire to fire.", element:"Earth · North"},
   {n:"VI", deity:"Nut", name:"Nut", role:"Connector", title:"The Relational Architect", essence:"The right connection changes everything. You are here to make those connections happen.", func:"You build bridges between people, ideas, and communities across the New Earth network.", activation:"Stop holding back. The connection you have been hesitating to make is the one that matters.", ancestors:"Every connection you make is one more thread in the net catching what the old world is dropping.", element:"Water · West"},
   {n:"VII", deity:"Ra", name:"Ra", role:"Protector", title:"The Driver", essence:"Momentum is not accidental. You know how to generate it and direct it so nothing is wasted.", func:"You move things. Projects, people, initiatives: you are the force that takes vision from the room into the world.", activation:"Take the wheel. The direction is clear. Move.", ancestors:"The warriors of the rainbow were not passive visionaries. They moved. That is you.", element:"Fire · South"},
-  {n:"VIII", deity:"Sekhmet", name:"Maat", role:"Protector", title:"The Fierce Protector", essence:"You carry power and you know how to hold it. The fire inside you does not need permission.", func:"You defend people, mission, and truth in the New Earth ecosystem through absolute clarity about what you will and will not allow.", activation:"Stand in your power. The compassion is already there. Lead with the strength.", ancestors:"Sekhmet carried this in ancient Egypt. It is alive in you.", element:"Fire · South"},
+  {n:"VIII", deity:"Maat", name:"Maat", role:"Protector", title:"The Fierce Protector", essence:"You carry power and you know how to hold it. The fire inside you does not need permission.", func:"You defend people, mission, and truth in the New Earth ecosystem through absolute clarity about what you will and will not allow.", activation:"Stand in your power. The compassion is already there. Lead with the strength.", ancestors:"Sekhmet carried this in ancient Egypt. It is alive in you.", element:"Fire · South"},
   {n:"IX", deity:"Thoth-Anu", name:"Thoth-Anu", role:"Oracle", title:"The Inner Guide", essence:"Your most important work happens in solitude. What you bring back from the silence is what others cannot find.", func:"You hold depth in an ecosystem that moves fast. Your stillness is the source of the clarity the entire system navigates by.", activation:"Go inward. The answer lives in the quiet.", ancestors:"Every warrior society knew the mystic and the warrior were not opposites. The rainbow warriors need those who have sat with the fire long enough.", element:"Earth · North"},
   {n:"X", deity:"Duat", name:"Duat", role:"Builder", title:"The Cycle Reader", essence:"Everything moves in cycles. You are one of the rare people who can see them and time your actions accordingly.", func:"You track patterns across time and help the ecosystem pivot before it needs to.", activation:"Read the cycle. Then move with it, not against it.", ancestors:"The Hopi knew the Seventh Fire would arrive in a specific season of the great cycle. You carry that temporal intelligence.", element:"Fire · South"},
-  {n:"XI", deity:"Maat", name:"Sekmet", role:"Oracle", title:"The Truth Keeper", essence:"Truth is not a principle for you. It is a physical sensation. When something is off, you feel it before anyone names it.", func:"You uphold the integrity that keeps the New Earth from replicating the old world's patterns.", activation:"Name what is true, even when it costs you something.", ancestors:"The elders taught that balance is a living law, not a concept. The feather and the scale have always been your medicine.", element:"Air · East"},
+  {n:"XI", deity:"Sekmet", name:"Sekmet", role:"Oracle", title:"The Truth Keeper", essence:"Truth is not a principle for you. It is a physical sensation. When something is off, you feel it before anyone names it.", func:"You uphold the integrity that keeps the New Earth from replicating the old world's patterns.", activation:"Name what is true, even when it costs you something.", ancestors:"The elders taught that balance is a living law, not a concept. The feather and the scale have always been your medicine.", element:"Air · East"},
   {n:"XII", deity:"Hanged Osiris", name:"Hanged Osiris", role:"Alchemist", title:"The Perspective Shifter", essence:"The pause you are resisting is the portal. What looks like delay is actually preparation.", func:"You hold space for transitions in an ecosystem built for speed.", activation:"Surrender to what you cannot control. The new view is only available from here.", ancestors:"That suspension is the most courageous posture in the prophecy.", element:"Water · West"},
   {n:"XIII", deity:"Anubis", name:"Anubis", role:"Alchemist", title:"The Threshold Guardian", essence:"You are not afraid of endings. That makes you one of the most valuable people in any room.", func:"You guide people through the hardest passages: endings, deaths, rebirths.", activation:"Walk through. What is on the other side is worth it.", ancestors:"Anubis weighed the heart against the feather. You are exactly that guardian.", element:"Water · West"},
   {n:"XIV", deity:"Maat-Ra", name:"Maat-Ra", role:"Alchemist", title:"The Harmonizer", essence:"You work with opposing forces until they become a single coherent thing. That is alchemy.", func:"You create coherence across moving parts: people, systems, timelines.", activation:"Trust the blend. What looks like contradiction is becoming something new.", ancestors:"The rainbow itself is alchemy. That is not compromise. That is the medicine the world is asking for.", element:"Water · West"},
@@ -372,21 +363,10 @@ const UI = {
     btnDraw:'✦ Tirar Cartas', btnInterpret:'◈ READ', btnResetTarot:'↺ Reset', tarotResultHeader:'✦ LECTURA NERA ✦',
     btnCopyResult:'⎘ Copiar Resultado',
     instructionsTitle:'✦ Modo Oráculo IA Activo',
-    instructions:'<strong>1.</strong> Escribe tu pregunta.<br><strong>2.</strong> Elige la tirada y tira las cartas.<br><strong>3.</strong> Presiona Interpretar para recibir tu lectura con ChatGPT.<br><strong>4.</strong> Toca cualquier carta para ver su arcano completo.',
-    alertDraw:'Primero tira las cartas.', alertName:'Escribe tu nombre para continuar.', generalReading:'Lectura general', loading:'Interpretando con ChatGPT...', copied:'Lectura copiada ✦', apiError:'No se pudo obtener respuesta de la API. Revisa tu clave o el modelo.',
-    oracleLabels:{message:'✦ Mensaje', shadow:'◈ Sombra', activation:'⊹ Activación', nextStep:'→ Próximo Paso'},
-    cardLabels:{essence:'✦ Esencia', func:'⊹ Función'},
-    oraclePrompt:(name,birth,arc,q)=>`Eres NERA, un oráculo místico, elegante y profundo. Responde en español.
-La persona se llama ${name}.${birth?` Fecha de nacimiento: ${birth}.`:''}
-Arquetipo revelado: ${arc.title} (${arc.name} · ${arc.deity} · ${arc.element}).
-Pregunta: "${q}".
-Devuelve SOLO JSON válido con esta estructura exacta:
-{"archetype":"${arc.title}","role":"${arc.deity} · ${arc.role}","message":"texto","shadow":"texto","activation":"texto","nextStep":"texto"}
-Hazlo intenso, bello, claro y directo.` ,
-    tarotPrompt:(question,cards)=>`Eres un lector de tarot profundo, simbólico y directo. Responde en español.
-Pregunta: "${question}"
-Cartas: ${cards}
-Escribe una lectura real, mística y humana de máximo 260 palabras. No uses viñetas. Integra las cartas entre sí y habla directamente a la persona.`
+    instructions:'<strong>1.</strong> Escribe tu pregunta.<br><strong>2.</strong> Elige la tirada y tira las cartas.<br><strong>3.</strong> Presiona Interpretar para recibir tu lectura.<br><strong>4.</strong> Toca cualquier carta para ver su arcano completo.',
+    alertDraw:'Primero tira las cartas.', alertName:'Escribe tu nombre para continuar.', generalReading:'Lectura general', copied:'Lectura copiada ✦',
+    oracleLabels:{message:'✦ Mensaje', shadow:'◈ Tu Función', activation:'⊹ Activación', nextStep:'→ Los Ancestros Dicen'},
+    cardLabels:{essence:'✦ Esencia', func:'⊹ Función'}
   },
   EN:{
     langBtn:'🌐 EN', statusText:'Nera Cloud active', subtitle:'New Earth Role Activation · 2026',
@@ -397,24 +377,13 @@ Escribe una lectura real, mística y humana de máximo 260 palabras. No uses vi�
     btnNewOracleReading:'↺ New Reading', btnCopyOracle:'⎘ Copy',
     tarotTag:'Tarot Reading', lblTarotQuestion:'Your Question', phTarotQuestion:'✦ Write your question...', lblSpread:'Spread',
     spread3:'3 Cards', spread5:'5 Cards', spread7:'7 Cards', spread22:'22 Arcana',
-    btnDraw:'✦ Draw Cards', btnInterpret:'◈ Interpret with ChatGPT', btnResetTarot:'↺ Reset', tarotResultHeader:'✦ NERA READING ✦',
+    btnDraw:'✦ Draw Cards', btnInterpret:'◈ READ', btnResetTarot:'↺ Reset', tarotResultHeader:'✦ NERA READING ✦',
     btnCopyResult:'⎘ Copy Result',
     instructionsTitle:'✦ AI Oracle Mode Active',
-    instructions:'<strong>1.</strong> Write your question.<br><strong>2.</strong> Choose the spread and draw the cards.<br><strong>3.</strong> Press Interpret to receive your ChatGPT reading.<br><strong>4.</strong> Tap any card to see its full arcana.',
-    alertDraw:'Draw the cards first.', alertName:'Write your name to continue.', generalReading:'General reading', loading:'READ...', copied:'Reading copied ✦', apiError:'Could not get a response from the API. Check your key or model.',
-    oracleLabels:{message:'✦ Message', shadow:'◈ Shadow', activation:'⊹ Activation', nextStep:'→ Next Step'},
-    cardLabels:{essence:'✦ Essence', func:'⊹ Function'},
-    oraclePrompt:(name,birth,arc,q)=>`You are NERA, a mystical, elegant and deep oracle. Respond in English.
-The person is named ${name}.${birth?` Birth date: ${birth}.`:''}
-Revealed archetype: ${arc.title} (${arc.name} · ${arc.deity} · ${arc.element}).
-Question: "${q}".
-Return ONLY valid JSON in this exact structure:
-{"archetype":"${arc.title}","role":"${arc.deity} · ${arc.role}","message":"text","shadow":"text","activation":"text","nextStep":"text"}
-Make it intense, beautiful, clear and direct.` ,
-    tarotPrompt:(question,cards)=>`You are a deep, symbolic and direct tarot reader. Respond in English.
-Question: "${question}"
-Cards: ${cards}
-Write a real, mystical and human reading of maximum 260 words. Do not use bullet points. Integrate the cards together and speak directly to the person.`
+    instructions:'<strong>1.</strong> Write your question.<br><strong>2.</strong> Choose the spread and draw the cards.<br><strong>3.</strong> Press Interpret to receive your reading.<br><strong>4.</strong> Tap any card to see its full arcana.',
+    alertDraw:'Draw the cards first.', alertName:'Write your name to continue.', generalReading:'General reading', copied:'Reading copied ✦',
+    oracleLabels:{message:'✦ Message', shadow:'◈ Your Function', activation:'⊹ Activation', nextStep:'→ What the Ancestors Say'},
+    cardLabels:{essence:'✦ Essence', func:'⊹ Function'}
   }
 };
 
@@ -473,7 +442,7 @@ function applyLanguage(){
   document.getElementById('tarotResultHeader').textContent = tx.tarotResultHeader;
   document.getElementById('btnCopiar').textContent = tx.btnCopyResult;
   document.getElementById('instrucciones').innerHTML = `<div class="inst-title">${tx.instructionsTitle}</div>${tx.instructions}`;
-  if(document.getElementById('step2').classList.contains('hidden')===false && !document.getElementById('oQuestion').value){ refreshQ(); }
+  if(!document.getElementById('step2').classList.contains('hidden') && !document.getElementById('oQuestion').value){ refreshQ(); }
 }
 
 function toggleLanguage(){
@@ -527,31 +496,6 @@ document.querySelectorAll('.modal-overlay').forEach(o=>o.addEventListener('click
 
 function setLoading(el){ el.innerHTML = '<div class="loading"><span></span><span></span><span></span></div>'; }
 
-async function openAIChat(prompt){
-  if(!OPENAI_API_KEY || OPENAI_API_KEY === 'PEGA_AQUI_TU_API'){
-    throw new Error('Falta la API key');
-  }
-  const response = await fetch('https://api.openai.com/v1/chat/completions', {
-    method:'POST',
-    headers:{
-      'Content-Type':'application/json',
-      'Authorization':'Bearer ' + OPENAI_API_KEY
-    },
-    body:JSON.stringify({
-      model: OPENAI_MODEL,
-      messages:[{role:'user', content: prompt}],
-      temperature: 0.9
-    })
-  });
-
-  const data = await response.json();
-  if(!response.ok){
-    const msg = data?.error?.message || ('HTTP ' + response.status);
-    throw new Error(msg);
-  }
-  return data.choices?.[0]?.message?.content?.trim() || '';
-}
-
 async function consultOracle(){
   const q=document.getElementById('oQuestion').value.trim();
   if(!q) return;
@@ -563,47 +507,21 @@ async function consultOracle(){
   const arc=ARCANAS[Math.floor(Math.random()*ARCANAS.length)];
   const index=ARCANAS.indexOf(arc)+1;
   const oCardImg=document.getElementById('oCardImg');
-  oCardImg.src = './' + arcIndex + '.jpg';
-oCardImg.onerror = function () {
-  console.log('No se encontró:', arcIndex + '.jpg');
-  this.style.display = 'none';
-};
+  oCardImg.src = './' + index + '.jpg';
+  oCardImg.style.display = 'block';
+  oCardImg.onerror = function () {
+    this.style.display = 'none';
+  };
 
   document.getElementById('oArch').textContent = arc.title;
   document.getElementById('oRole').textContent = `${arc.deity} · ${arc.role}`;
-  setLoading(document.getElementById('oFields'));
 
-  try{
-    const raw = await openAIChat(t().oraclePrompt(oUser.name, oUser.birth, arc, q));
-    const clean = raw.replace(/^```json\s*/i,'').replace(/^```/,'').replace(/```$/,'').trim();
-    const j = JSON.parse(clean);
-    renderOracleResponse(j, arc);
-  }catch(err){
-    renderOracleFallback(arc);
-  }
-}
-
-function renderOracleResponse(j, arc){
   const labels=t().oracleLabels;
-  lastOracleText = `${j.archetype || arc.title}\n${j.role || (arc.deity + ' · ' + arc.role)}\n\n${labels.message.replace(/[✦◈⊹→]/g,'').trim()}: ${j.message}\n\n${labels.shadow.replace(/[✦◈⊹→]/g,'').trim()}: ${j.shadow}\n\n${labels.activation.replace(/[✦◈⊹→]/g,'').trim()}: ${j.activation}\n\n${labels.nextStep.replace(/[✦◈⊹→]/g,'').trim()}: ${j.nextStep}`;
-  document.getElementById('oArch').textContent = j.archetype || arc.title;
-  document.getElementById('oRole').textContent = j.role || `${arc.deity} · ${arc.role}`;
-  document.getElementById('oFields').innerHTML = `
-    <div class="o-field msg"><span class="o-lbl">${labels.message}</span><div class="o-txt">${j.message || ''}</div></div>
-    <div class="o-field shad"><span class="o-lbl">${labels.shadow}</span><div class="o-txt">${j.shadow || ''}</div></div>
-    <div class="o-field activ"><span class="o-lbl">${labels.activation}</span><div class="o-txt">${j.activation || ''}</div></div>
-    <div class="o-field next"><span class="o-lbl">${labels.nextStep}</span><div class="o-txt">${j.nextStep || ''}</div></div>
-    <div style="text-align:center;margin-top:18px;padding-top:14px;border-top:1px solid rgba(201,168,76,.09);">
-      <span style="font-size:11px;font-style:italic;color:rgba(201,168,76,.3);letter-spacing:2px;">NERA · ${arc.element}</span>
-    </div>`;
-}
+  const msg = `${oUser.name}, ${arc.essence}`;
+  const shad = arc.func;
+  const act = arc.activation;
+  const nxt = arc.ancestors;
 
-function renderOracleFallback(arc){
-  const labels=t().oracleLabels;
-  const msg = idioma==='ES' ? `${oUser.name}, ${arc.essence}` : `${oUser.name}, ${arc.essence}`;
-  const shad = idioma==='ES' ? arc.func : arc.func;
-  const act = idioma==='ES' ? arc.activation : arc.activation;
-  const nxt = idioma==='ES' ? arc.ancestors : arc.ancestors;
   lastOracleText = `${arc.title}\n${arc.deity} · ${arc.role}\n\n${labels.message}: ${msg}\n\n${labels.shadow}: ${shad}\n\n${labels.activation}: ${act}\n\n${labels.nextStep}: ${nxt}`;
   document.getElementById('oFields').innerHTML = `
     <div class="o-field msg"><span class="o-lbl">${labels.message}</span><div class="o-txt">${msg}</div></div>
@@ -695,7 +613,7 @@ async function interpretar(){
   const pregunta = document.getElementById('pregunta').value.trim();
 
   if(!tiradaActual.length){
-    alert('Primero tira las cartas');
+    alert(t().alertDraw);
     return;
   }
 
@@ -703,7 +621,7 @@ async function interpretar(){
   const resT = document.getElementById('resultadoTexto');
 
   res.classList.add('visible');
-  resT.innerHTML = '<div class="loading"><span></span><span></span><span></span></div>';
+  setLoading(resT);
 
   const nombres = tiradaActual.map(c =>
     ARCANAS[c-1].name + ' (' + ARCANAS[c-1].title + ')'
@@ -714,7 +632,8 @@ async function interpretar(){
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        pregunta: pregunta || 'Lectura general',
+        idioma,
+        pregunta: pregunta || t().generalReading,
         cartas: nombres
       })
     });
@@ -730,7 +649,24 @@ async function interpretar(){
     resT.innerHTML = 'Error: ' + e.message;
   }
 
-  document.getElementById('copyTarotRow').style.display='flex';
+  document.getElementById('copyTarotRow').classList.remove('hidden');
+  res.scrollIntoView({behavior:'smooth', block:'nearest'});
+}
+
+function copyTarot(){
+  navigator.clipboard.writeText(document.getElementById('resultadoTexto').innerText);
+  const b=document.getElementById('btnCopiar');
+  b.textContent = idioma==='ES' ? '✓ Copiado' : '✓ Copied';
+  setTimeout(()=> b.textContent = t().btnCopyResult, 1800);
+}
+
+function resetear(){
+  tiradaActual=[];
+  document.getElementById('cartas').innerHTML='';
+  document.getElementById('resultado').classList.remove('visible');
+  document.getElementById('resultadoTexto').innerHTML='';
+  document.getElementById('pregunta').value='';
+  document.getElementById('copyTarotRow').classList.add('hidden');
 }
 
 applyLanguage();
