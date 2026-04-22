@@ -3,10 +3,12 @@ export async function onRequestPost(context) {
     const { request, env } = context;
     const body = await request.json();
 
-    const pregunta = body?.pregunta || "Lectura general";
+    const idioma = body?.idioma === "EN" ? "EN" : "ES";
+    const pregunta = body?.pregunta || (idioma === "ES" ? "Lectura general" : "General reading");
     const cartas = Array.isArray(body?.cartas) ? body.cartas : [];
 
-    const prompt = `
+    const prompt = idioma === "ES"
+      ? `
 Eres NERA, un oráculo místico, profundo y elegante.
 
 Pregunta del consultante:
@@ -18,22 +20,39 @@ ${cartas.join(", ")}
 Haz una interpretación espiritual, emocional y clara.
 Habla directamente a la persona.
 No uses listas.
-No repitas literalmente los nombres de las cartas demasiadas veces.
+No repitas demasiado los nombres de las cartas.
 Extensión máxima: 220 palabras.
+`
+      : `
+You are NERA, a mystical, deep and elegant oracle.
+
+Question from the querent:
+"${pregunta}"
+
+Revealed cards:
+${cartas.join(", ")}
+
+Write a spiritual, emotional and clear interpretation.
+Speak directly to the person.
+Do not use bullet points.
+Do not repeat the card names too much.
+Maximum length: 220 words.
 `;
 
     const openaiRes = await fetch("https://api.openai.com/v1/chat/completions", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        "Authorization": `Bearer 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
+        "Authorization": `Bearer ${env.OPENAI_API_KEY}`
       },
       body: JSON.stringify({
         model: "gpt-4o-mini",
         messages: [
           {
             role: "system",
-            content: "Eres NERA, un oráculo espiritual, simbólico, elegante y emocional."
+            content: idioma === "ES"
+              ? "Eres NERA, un oráculo espiritual, simbólico, elegante y emocional."
+              : "You are NERA, a spiritual, symbolic, elegant and emotional oracle."
           },
           {
             role: "user",
