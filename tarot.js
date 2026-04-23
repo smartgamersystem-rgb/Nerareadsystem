@@ -1,14 +1,12 @@
-export async function onRequestPost(context) {
+ export async function onRequestPost(context) {
   try {
     const { request, env } = context;
     const body = await request.json();
 
-    const idioma = body?.idioma === "EN" ? "EN" : "ES";
-    const pregunta = body?.pregunta || (idioma === "ES" ? "Lectura general" : "General reading");
+    const pregunta = body?.pregunta || "Lectura general";
     const cartas = Array.isArray(body?.cartas) ? body.cartas : [];
 
-    const prompt = idioma === "ES"
-      ? `
+    const prompt = `
 Eres NERA, un oráculo místico, profundo y elegante.
 
 Pregunta del consultante:
@@ -22,37 +20,20 @@ Habla directamente a la persona.
 No uses listas.
 No repitas demasiado los nombres de las cartas.
 Extensión máxima: 220 palabras.
-`
-      : `
-You are NERA, a mystical, deep and elegant oracle.
-
-Question from the querent:
-"${pregunta}"
-
-Revealed cards:
-${cartas.join(", ")}
-
-Write a spiritual, emotional and clear interpretation.
-Speak directly to the person.
-Do not use bullet points.
-Do not repeat the card names too much.
-Maximum length: 220 words.
 `;
 
     const openaiRes = await fetch("https://api.openai.com/v1/chat/completions", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        "Authorization": `Bearer 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
+        "Authorization": `Bearer ${env.OPENAI_API_KEY}`  // 🔐 AQUÍ USA LA SECRET
       },
       body: JSON.stringify({
         model: "gpt-4o-mini",
         messages: [
           {
             role: "system",
-            content: idioma === "ES"
-              ? "Eres NERA, un oráculo espiritual, simbólico, elegante y emocional."
-              : "You are NERA, a spiritual, symbolic, elegant and emotional oracle."
+            content: "Eres NERA, un oráculo espiritual profundo, elegante y simbólico."
           },
           {
             role: "user",
@@ -90,4 +71,4 @@ Maximum length: 220 words.
       headers: { "Content-Type": "application/json" }
     });
   }
-}
+}     
