@@ -304,6 +304,8 @@ select{-webkit-appearance:none;appearance:none}
 </div>
 
 <script>
+const API_URL = "https://nerareadsystem.smartgamersystem.workers.dev/api/tarot";
+
 const ARCANAS = [
   {n:"0", deity:"Khepra", name:"Khepra", role:"Oracle", title:"The Pioneer", essence:"You stand at the edge of something you cannot yet name. The path reveals itself only by walking it.", func:"You open doors that did not exist before you arrived. You enter the uncharted node and signal it is safe to build here.", activation:"Step forward. The ground will appear.", ancestors:"The Rainbow Warriors were told they would not know each other by face, but by willingness to begin. This is the beginning the elders foretold.", element:"Air · East"},
   {n:"I", deity:"Thoth", name:"Thoth", role:"Builder", title:"The Architect of Reality", essence:"Your mind is not just a tool. It is a force. What you think, you build. What you speak, you create.", func:"You design systems and frameworks that translate vision into lived reality. You build what others will inhabit.", activation:"Build what does not exist yet. You are the one who can.", ancestors:"The ancient ones said the builders of the New Earth would carry the language of creation itself. Your mind is that instrument.", element:"Air · East"},
@@ -628,7 +630,7 @@ async function interpretar(){
   );
 
   try{
-    const r = await fetch('/api/tarot', {
+    const r = await fetch(API_URL, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
