@@ -10,7 +10,7 @@ export async function onRequestPost(context) {
 
     const prompt = idioma === "ES"
       ? `
-Eres NERA, un oráculo místico, profundo y elegante.
+Eres NERA, un oráculo místico, profundo y elegantee.
 
 Pregunta del consultante:
 "${pregunta}"
