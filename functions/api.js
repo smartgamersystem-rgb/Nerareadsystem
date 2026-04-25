@@ -1,8 +1,40 @@
+const corsHeaders = {
+  "Access-Control-Allow-Origin": "*",
+  "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
+  "Access-Control-Allow-Headers": "Content-Type, Authorization",
+  "Content-Type": "application/json"
+};
+
+export async function onRequestOptions() {
+  return new Response(null, {
+    status: 204,
+    headers: corsHeaders
+  });
+}
+
+export async function onRequestGet() {
+  return new Response(JSON.stringify({
+    status: "ok",
+    message: "NERA API funcionando. Usa POST /api"
+  }), {
+    status: 200,
+    headers: corsHeaders
+  });
+}
 
 export async function onRequestPost(context) {
   const { request, env } = context;
 
   try {
+    if (!env.OPENAI_API_KEY) {
+      return new Response(JSON.stringify({
+        error: "Falta configurar OPENAI_API_KEY en Cloudflare."
+      }), {
+        status: 500,
+        headers: corsHeaders
+      });
+    }
+
     const body = await request.json();
 
     const idioma = body?.idioma === "EN" ? "EN" : "ES";
@@ -11,7 +43,7 @@ export async function onRequestPost(context) {
 
     const prompt = idioma === "ES"
       ? `
-Eres NERA, un oráculo místico, profundo y elegantee.
+Eres NERA, un oráculo místico, profundo y elegante.
 
 Pregunta del consultante:
 "${pregunta}"
@@ -36,6 +68,7 @@ ${cartas.join(", ")}
 
 Write a spiritual, emotional and clear interpretation.
 Speak directly to the person.
+Do not use bullet points.
 Do not repeat the card names too much.
 Maximum length: 220 words.
 `;
@@ -44,7 +77,7 @@ Maximum length: 220 words.
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        "Authorization": `Bearer ${env.OPENAI_API_KEY}`  // ← Se lee del secret de Cloudflare
+        "Authorization": `Bearer ${env.OPENAI_API_KEY}`
       },
       body: JSON.stringify({
         model: "gpt-4o-mini",
@@ -61,7 +94,7 @@ Maximum length: 220 words.
           }
         ],
         temperature: 0.9,
-        max_completion_tokens: 350
+        max_tokens: 350
       })
     });
 
@@ -72,7 +105,7 @@ Maximum length: 220 words.
         error: data?.error?.message || "Error en OpenAI"
       }), {
         status: openaiRes.status,
-        headers: { "Content-Type": "application/json" }
+        headers: corsHeaders
       });
     }
 
@@ -80,14 +113,15 @@ Maximum length: 220 words.
 
     return new Response(JSON.stringify({ resultado }), {
       status: 200,
-      headers: { "Content-Type": "application/json" }
+      headers: corsHeaders
     });
+
   } catch (error) {
     return new Response(JSON.stringify({
       error: error.message || "Error interno"
     }), {
       status: 500,
-      headers: { "Content-Type": "application/json" }
+      headers: corsHeaders
     });
   }
 }
