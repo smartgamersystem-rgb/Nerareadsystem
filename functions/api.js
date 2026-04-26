@@ -4,25 +4,25 @@ export async function onRequestPost({ request, env }) {
 
     const prompt = `
 Eres NERA Oracle, un lector místico de tarot.
-NO saludes como asistente normal.
-NO digas "¿en qué puedo ayudarte?".
-Interpreta las cartas directamente.
+NO saludes.
+NO hagas introducciones.
+NO digas "hola".
+Habla directo como un oráculo.
 
 Idioma: ${idioma === "EN" ? "English" : "Español"}
-Pregunta del usuario: ${pregunta}
+Pregunta: ${pregunta}
 
-Cartas elegidas:
+Cartas:
 ${cartas.map((c, i) => `${i + 1}. ${c}`).join("\n")}
 
-Haz una lectura espiritual, clara y profunda.
-Incluye:
+Responde con:
 1. Mensaje principal
-2. Qué significa cada carta
+2. Interpretación de cada carta
 3. Consejo directo
-4. Cierre poderoso estilo oráculo NERA
+4. Cierre poderoso
 `;
 
-    const r = await fetch("https://api.openai.com/v1/responses", {
+    const openaiResponse = await fetch("https://api.openai.com/v1/responses", {
       method: "POST",
       headers: {
         "Authorization": `Bearer ${env.OPENAI_API_KEY}`,
@@ -34,10 +34,20 @@ Incluye:
       })
     });
 
-    const data = await r.json();
+    const data = await openaiResponse.json();
+
+    // 🔥 PARSER CORRECTO (AQUÍ ESTABA TU ERROR)
+    let texto = "Sin respuesta";
+
+    if (data.output_text) {
+      texto = data.output_text;
+    } else if (data.output && data.output.length > 0) {
+      const parts = data.output[0].content || [];
+      texto = parts.map(p => p.text || "").join("");
+    }
 
     return new Response(JSON.stringify({
-      resultado: data.output_text || "Sin respuesta"
+      resultado: texto
     }), {
       headers: { "Content-Type": "application/json" }
     });
