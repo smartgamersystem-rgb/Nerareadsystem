@@ -1,98 +1,53 @@
-export async function onRequest(context) {
-  const { request, env } = context;
+export async function onRequestPost({ request, env }) {
+  try {
+    const { idioma, pregunta, cartas } = await request.json();
 
-  const corsHeaders = {
-    "Access-Control-Allow-Origin": "*",
-    "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
-    "Access-Control-Allow-Headers": "Content-Type, Authorization",
-    "Content-Type": "application/json"
-  };
+    const prompt = `
+Eres NERA Oracle, un lector místico de tarot.
+NO saludes como asistente normal.
+NO digas "¿en qué puedo ayudarte?".
+Interpreta las cartas directamente.
 
-  // 🔹 Preflight (CORS)
-  if (request.method === "OPTIONS") {
-    return new Response(null, {
-      status: 204,
-      headers: corsHeaders
+Idioma: ${idioma === "EN" ? "English" : "Español"}
+Pregunta del usuario: ${pregunta}
+
+Cartas elegidas:
+${cartas.map((c, i) => `${i + 1}. ${c}`).join("\n")}
+
+Haz una lectura espiritual, clara y profunda.
+Incluye:
+1. Mensaje principal
+2. Qué significa cada carta
+3. Consejo directo
+4. Cierre poderoso estilo oráculo NERA
+`;
+
+    const r = await fetch("https://api.openai.com/v1/responses", {
+      method: "POST",
+      headers: {
+        "Authorization": `Bearer ${env.OPENAI_API_KEY}`,
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        model: "gpt-4.1-mini",
+        input: prompt
+      })
     });
-  }
 
-  // 🔹 GET test
-  if (request.method === "GET") {
+    const data = await r.json();
+
     return new Response(JSON.stringify({
-      status: "ok",
-      message: "NERA API funcionando. Usa POST /api"
+      resultado: data.output_text || "Sin respuesta"
     }), {
-      status: 200,
-      headers: corsHeaders
+      headers: { "Content-Type": "application/json" }
+    });
+
+  } catch (err) {
+    return new Response(JSON.stringify({
+      error: err.message
+    }), {
+      status: 500,
+      headers: { "Content-Type": "application/json" }
     });
   }
-
-  // 🔹 POST (tu lógica principal)
-  if (request.method === "POST") {
-    try {
-      if (!env.OPENAI_API_KEY) {
-        return new Response(JSON.stringify({
-          error: "Falta configurar OPENAI_API_KEY en Cloudflare."
-        }), {
-          status: 500,
-          headers: corsHeaders
-        });
-      }
-
-      const body = await request.json();
-
-      const idioma = body?.idioma === "EN" ? "EN" : "ES";
-      const pregunta = body?.pregunta || (idioma === "ES" ? "Lectura general" : "General reading");
-      const cartas = Array.isArray(body?.cartas) ? body.cartas : [];
-
-      const prompt = idioma === "ES"
-        ? `Eres NERA...`
-        : `You are NERA...`;
-
-      const openaiRes = await fetch("https://api.openai.com/v1/chat/completions", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          "Authorization": `Bearer ${env.OPENAI_API_KEY}`
-        },
-        body: JSON.stringify({
-          model: "gpt-4o-mini",
-          messages: [
-            { role: "system", content: "Eres NERA..." },
-            { role: "user", content: prompt }
-          ],
-          temperature: 0.9,
-          max_tokens: 350
-        })
-      });
-
-      const data = await openaiRes.json();
-
-      if (!openaiRes.ok) {
-        return new Response(JSON.stringify({
-          error: data?.error?.message || "Error en OpenAI"
-        }), {
-          status: openaiRes.status,
-          headers: corsHeaders
-        });
-      }
-
-      const resultado = data?.choices?.[0]?.message?.content || "No se obtuvo respuesta.";
-
-      return new Response(JSON.stringify({ resultado }), {
-        status: 200,
-        headers: corsHeaders
-      });
-
-    } catch (error) {
-      return new Response(JSON.stringify({
-        error: error.message || "Error interno"
-      }), {
-        status: 500,
-        headers: corsHeaders
-      });
-    }
-  }
-
-  return new Response("Método no permitido", { status: 405 });
 }
