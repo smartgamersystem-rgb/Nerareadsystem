@@ -121,17 +121,18 @@ select{-webkit-appearance:none;appearance:none}
 .grid5{grid-template-columns:repeat(5,128px)}
 .grid7{grid-template-columns:repeat(7,110px)}
 .grid22{grid-template-columns:repeat(7,108px)}
-.carta{width:128px;height:232px;position:relative;overflow:hidden;border-radius:14px;box-shadow:0 8px 26px rgba(0,0,0,.62);cursor:pointer;transition:transform .2s;perspective:900px}
+.carta{width:138px;height:252px;position:relative;overflow:visible;border-radius:14px;box-shadow:0 8px 26px rgba(0,0,0,.62);cursor:pointer;transition:transform .2s;perspective:900px}
 .carta:hover{transform:translateY(-4px)}
-.carta img{width:100%;height:196px;display:block;object-fit:cover;border-radius:14px}
-.sombraCarta{position:absolute;top:0;left:0;width:100%;height:196px;border-radius:14px;background:radial-gradient(ellipse at center,rgba(6,32,18,.92) 0%,rgba(3,20,11,.98) 100%)}
+.carta img{width:100%;height:212px;display:block;object-fit:cover;border-radius:14px}
+.sombraCarta{position:absolute;top:0;left:0;width:100%;height:212px;border-radius:14px;background:radial-gradient(ellipse at center,rgba(6,32,18,.92) 0%,rgba(3,20,11,.98) 100%)}
 .carta-glow{position:absolute;inset:-3px;border-radius:16px;background:linear-gradient(135deg,rgba(201,168,76,.42),rgba(39,174,127,.38),rgba(201,168,76,.42));z-index:-1;opacity:0;animation:cglow .8s forwards;animation-delay:7.25s}
 .nombreCarta{font-size:11px;font-style:italic;margin-top:6px;color:var(--gold);display:none;line-height:1.3;text-align:center}
 .realCarta{position:absolute;top:0;left:0;z-index:1;opacity:0;transform:rotateY(180deg) scale(.96);transition:opacity 1.05s ease,transform 1.05s ease}
-.coverCarta{position:absolute;top:0;left:0;width:100%;height:196px;object-fit:cover;border-radius:14px;z-index:3;opacity:1;transform:rotateY(0deg);transition:opacity 1.05s ease,transform 1.05s ease;box-shadow:0 0 26px rgba(0,0,0,.55)}
-.coverFallback{position:absolute;top:0;left:0;width:100%;height:196px;border-radius:14px;z-index:2;display:flex;align-items:center;justify-content:center;text-align:center;padding:10px;background:radial-gradient(circle at center,rgba(39,174,127,.38),rgba(2,25,12,.98));border:1px solid rgba(201,168,76,.35);font-family:'Cinzel Decorative',serif;font-size:13px;letter-spacing:2px;color:var(--gold-light)}
+.coverCarta{position:absolute;top:0;left:0;width:100%;height:212px;object-fit:cover;border-radius:14px;z-index:3;opacity:1;transform:rotateY(0deg);transition:opacity 1.05s ease,transform 1.05s ease;box-shadow:0 0 26px rgba(0,0,0,.55)}
+.coverFallback{position:absolute;top:0;left:0;width:100%;height:212px;border-radius:14px;z-index:2;display:flex;align-items:center;justify-content:center;text-align:center;padding:10px;background:radial-gradient(circle at center,rgba(39,174,127,.38),rgba(2,25,12,.98));border:1px solid rgba(201,168,76,.35);font-family:'Cinzel Decorative',serif;font-size:13px;letter-spacing:2px;color:var(--gold-light)}
 .carta.revealed .coverCarta{opacity:0;transform:rotateY(180deg) scale(.92);pointer-events:none}
-.carta.revealed .realCarta{opacity:1;transform:rotateY(0deg) scale(1)}
+.carta.revealed .realCarta{opacity:1;transform:rotateY(0deg) scale(1.08);z-index:5;box-shadow:0 0 32px rgba(0,0,0,.62)}
+.carta.revealed .coverFallback{display:none}
 .carta.revealed .nombreCarta{display:block}
 
 @keyframes torbellino{
@@ -176,8 +177,8 @@ select{-webkit-appearance:none;appearance:none}
   .grid5{grid-template-columns:repeat(3,100px)}
   .grid7{grid-template-columns:repeat(4,88px)}
   .grid22{grid-template-columns:repeat(4,82px)}
-  .carta{width:86px;height:168px}
-  .carta img,.sombraCarta,.coverCarta{height:138px}
+  .carta{width:96px;height:184px}
+  .carta img,.sombraCarta,.coverCarta,.coverFallback{height:152px}
   .panel,.oracle-fields,#resultado{padding:18px 16px}
   .oracle-card-img{width:140px}
   .topbar{gap:8px}
@@ -281,6 +282,7 @@ input::placeholder,textarea::placeholder{color:rgba(183,255,199,.55)!important;}
       <div class="btn-row" style="margin:18px auto;max-width:460px;">
         <button class="btn-ghost" id="btnNewOracleReading" onclick="resetOracle()">↺ Nueva Lectura</button>
         <button class="btn-secondary" id="btnCopyOracle" onclick="copyOracle()">⎘ Copiar</button>
+        <button class="btn-ghost" id="btnPDFOracle" onclick="exportOraclePDF()">⬇ Guardar Oráculo PDF</button>
       </div>
     </div>
   </section>
@@ -719,6 +721,7 @@ function applyLanguage(){
   document.getElementById('btnCopiar').textContent = tx.btnCopyResult;
   const pdfBtn=document.getElementById('btnPDF'); if(pdfBtn) pdfBtn.textContent = idioma==='ES' ? '⬇ Guardar PDF' : '⬇ Save PDF';
   const pdfMain=document.getElementById('btnPDFMain'); if(pdfMain) pdfMain.textContent = idioma==='ES' ? '⬇ Guardar lectura PDF' : '⬇ Save reading PDF';
+  const pdfOracle=document.getElementById('btnPDFOracle'); if(pdfOracle) pdfOracle.textContent = idioma==='ES' ? '⬇ Guardar Oráculo PDF' : '⬇ Save Oracle PDF';
   if(!document.getElementById('step2').classList.contains('hidden') && !document.getElementById('oQuestion').value){ refreshQ(); }
 }
 
@@ -996,6 +999,42 @@ function copyTarot(){
   setTimeout(()=> b.textContent = t().btnCopyResult, 1800);
 }
 
+
+
+function exportOraclePDF(){
+  const titulo = document.getElementById('oArch').innerText.trim();
+  const rol = document.getElementById('oRole').innerText.trim();
+  const texto = (lastOracleText || document.getElementById('oFields').innerText || '').trim();
+  if(!texto){ alert(idioma==='ES' ? 'Primero revela una carta del Oráculo.' : 'Reveal an Oracle card first.'); return; }
+  const contenido = `NERA Oracle\n\n${titulo}\n${rol}\n\n${texto}`;
+
+  if(window.jspdf && window.jspdf.jsPDF){
+    const { jsPDF } = window.jspdf;
+    const doc = new jsPDF({unit:'pt', format:'letter'});
+    const margin = 44;
+    let y = 54;
+    doc.setFont('times','bold');
+    doc.setFontSize(18);
+    doc.text('NERA Oracle', margin, y);
+    y += 28;
+    doc.setFont('times','normal');
+    doc.setFontSize(12);
+    const lines = doc.splitTextToSize(contenido.replace('NERA Oracle\n\n',''), 520);
+    lines.forEach(line => {
+      if(y > 740){ doc.addPage(); y = 54; }
+      doc.text(line, margin, y);
+      y += 16;
+    });
+    doc.save('oraculo-nera.pdf');
+    return;
+  }
+
+  const w = window.open('', '_blank');
+  w.document.write(`<pre style="font-family:serif;white-space:pre-wrap;line-height:1.6">${contenido.replace(/[&<>]/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;'}[m]))}</pre>`);
+  w.document.close();
+  w.focus();
+  w.print();
+}
 
 function exportReadingPDF(){
   const pregunta = document.getElementById('pregunta').value.trim() || t().generalReading;
