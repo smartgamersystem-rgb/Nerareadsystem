@@ -307,6 +307,7 @@ input::placeholder,textarea::placeholder{color:rgba(183,255,199,.55)!important;}
         <button class="btn-primary" id="btnDraw" onclick="tirar()">✦ Tirar Cartas</button>
         <button class="btn-secondary" id="btnInterpret" onclick="interpretar()">◈ READ</button>
         <button class="btn-ghost" id="btnResetTarot" onclick="resetear()">↺ Reset</button>
+        <button class="btn-ghost" id="btnPDFMain" onclick="exportReadingPDF()">⬇ Guardar lectura PDF</button>
       </div>
     </div>
 
@@ -336,28 +337,270 @@ input::placeholder,textarea::placeholder{color:rgba(183,255,199,.55)!important;}
 const API_URL = "https://nerareadsystem.pages.dev/api";
 
 const ARCANAS = [
-  {n:"0", deity:"Khepra", name:"The Fool", role:"The Pioneer", title:"The Pioneer", essence:"You stand at the edge of something you cannot yet name. The path reveals itself only by walking it.", func:"You open doors that did not exist before you arrived. You enter the uncharted node and signal it is safe to build here.", activation:"Step forward. The ground will appear.", ancestors:"The Rainbow Warriors were told they would not know each other by face, but by willingness to begin. This is the beginning the elders foretold.", element:"Air · East"},
-  {n:"I", deity:"Thoth", name:"The Magus", role:"The Architect of Reality", title:"The Architect of Reality", essence:"Your mind is not just a tool. It is a force. What you think, you build. What you speak, you create.", func:"You design systems and frameworks that translate vision into lived reality. You build what others will inhabit.", activation:"Build what does not exist yet. You are the one who can.", ancestors:"The ancient ones said the builders of the New Earth would carry the language of creation itself. Your mind is that instrument.", element:"Air · East"},
-  {n:"II", deity:"Isis", name:"The High Priestess", role:"The Oracle", title:"The Oracle", essence:"You see the layer beneath the surface. What others call intuition, you call information.", func:"You hold strategic vision and pattern recognition simultaneously. You sense where energy is moving before the data confirms it.", activation:"Trust what you perceive. It is more accurate than you know.", ancestors:"The Seer Medicine has been carried since before the first sunrise. You are one of them. The earth needs its oracles awake.", element:"Water · West"},
-  {n:"III", deity:"Hathor", name:"The Empress", role:"The Cultivator", title:"The Cultivator", essence:"Life follows your attention. Beauty is not decoration. It is your method of building.", func:"You build culture, design experiences, and create environments people return to.", activation:"Tend what is alive. The most important things grow slowly.", ancestors:"The prophecy spoke of those who would remember how to tend the Earth as living kin. What you cultivate now feeds the seventh generation.", element:"Earth · North"},
-  {n:"IV", deity:"Osiris", name:"The Emperor", role:"The Structural Architect", title:"The Structural Architect", essence:"Structure is not the opposite of freedom. It is what makes freedom possible. You know how to build that.", func:"You design the systems that allow everything else to function: governance, infrastructure, organizational design.", activation:"Build the bones. Everything else grows on what you create.", ancestors:"The ancient ones built civilizations so precisely the knowledge outlasted the builders by thousands of years.", element:"Fire · South"},
-  {n:"V", deity:"Amun", name:"The Hierophant", role:"The Keeper of Transmission", title:"The Keeper of Transmission", essence:"You carry something ancient and make it alive again. Wisdom is only wisdom when it is transmitted.", func:"You hold the sacred knowledge that must not be lost in the transition: ceremony, initiation, deep teachings.", activation:"Teach what you know. Pass the flame.", ancestors:"The Rainbow Warrior prophecy was carried not in books, but through transmission, elder to initiate, fire to fire.", element:"Earth · North"},
-  {n:"VI", deity:"Nut", name:"The Lovers", role:"The Relational Architect", title:"The Relational Architect", essence:"The right connection changes everything. You are here to make those connections happen.", func:"You build bridges between people, ideas, and communities across the New Earth network.", activation:"Stop holding back. The connection you have been hesitating to make is the one that matters.", ancestors:"Every connection you make is one more thread in the net catching what the old world is dropping.", element:"Water · West"},
-  {n:"VII", deity:"Ra", name:"The Chariot", role:"The Driver", title:"The Driver", essence:"Momentum is not accidental. You know how to generate it and direct it so nothing is wasted.", func:"You move things. Projects, people, initiatives: you are the force that takes vision from the room into the world.", activation:"Take the wheel. The direction is clear. Move.", ancestors:"The warriors of the rainbow were not passive visionaries. They moved. That is you.", element:"Fire · South"},
-  {n:"VIII", deity:"Sekhmet", name:"Strength", role:"The Fierce Protector", title:"The Fierce Protector", essence:"You carry power and you know how to hold it. The fire inside you does not need permission.", func:"You defend people, mission, and truth in the New Earth ecosystem through absolute clarity about what you will and will not allow.", activation:"Stand in your power. The compassion is already there. Lead with the strength.", ancestors:"Sekhmet carried this in ancient Egypt. It is alive in you.", element:"Fire · South"},
-  {n:"IX", deity:"Thoth-Anu", name:"The Hermit", role:"The Inner Guide", title:"The Inner Guide", essence:"Your most important work happens in solitude. What you bring back from the silence is what others cannot find.", func:"You hold depth in an ecosystem that moves fast. Your stillness is the source of the clarity the entire system navigates by.", activation:"Go inward. The answer lives in the quiet.", ancestors:"Every warrior society knew the mystic and the warrior were not opposites. The rainbow warriors need those who have sat with the fire long enough.", element:"Earth · North"},
-  {n:"X", deity:"Duat", name:"The Wheel", role:"The Cycle Reader", title:"The Cycle Reader", essence:"Everything moves in cycles. You are one of the rare people who can see them and time your actions accordingly.", func:"You track patterns across time and help the ecosystem pivot before it needs to.", activation:"Read the cycle. Then move with it, not against it.", ancestors:"The Hopi knew the Seventh Fire would arrive in a specific season of the great cycle. You carry that temporal intelligence.", element:"Fire · South"},
-  {n:"XI", deity:"Maat", name:"Justice", role:"The Truth Keeper", title:"The Truth Keeper", essence:"Truth is not a principle for you. It is a physical sensation. When something is off, you feel it before anyone names it.", func:"You uphold the integrity that keeps the New Earth from replicating the old world's patterns.", activation:"Name what is true, even when it costs you something.", ancestors:"The elders taught that balance is a living law, not a concept. The feather and the scale have always been your medicine.", element:"Air · East"},
-  {n:"XII", deity:"Hanged Osiris", name:"The Hanged One", role:"The Perspective Shifter", title:"The Perspective Shifter", essence:"The pause you are resisting is the portal. What looks like delay is actually preparation.", func:"You hold space for transitions in an ecosystem built for speed.", activation:"Surrender to what you cannot control. The new view is only available from here.", ancestors:"That suspension is the most courageous posture in the prophecy.", element:"Water · West"},
-  {n:"XIII", deity:"Anubis", name:"Transformation (Death)", role:"The Threshold Guardian", title:"The Threshold Guardian", essence:"You are not afraid of endings. That makes you one of the most valuable people in any room.", func:"You guide people through the hardest passages: endings, deaths, rebirths.", activation:"Walk through. What is on the other side is worth it.", ancestors:"Anubis weighed the heart against the feather. You are exactly that guardian.", element:"Water · West"},
-  {n:"XIV", deity:"Maat-Ra", name:"Temperance", role:"The Harmonizer", title:"The Harmonizer", essence:"You work with opposing forces until they become a single coherent thing. That is alchemy.", func:"You create coherence across moving parts: people, systems, timelines.", activation:"Trust the blend. What looks like contradiction is becoming something new.", ancestors:"The rainbow itself is alchemy. That is not compromise. That is the medicine the world is asking for.", element:"Water · West"},
-  {n:"XV", deity:"Set", name:"The Shadow (Devil)", role:"The Shadow Catalyst", title:"The Shadow Catalyst", essence:"You see what is hidden, the lie inside the structure, the fear inside the confidence. That vision is a gift, not a curse.", func:"You challenge false certainty, expose blind spots, and force the real conversations the New Earth must have.", activation:"Name the thing in the room. Your power lives where others turn away.", ancestors:"You carry the medicine that prevents collapse from within.", element:"Earth · North"},
-  {n:"XVI", deity:"Babel-Khem", name:"The Tower", role:"The System Breaker", title:"The System Breaker", essence:"You are drawn to structures that need to fall, not out of destruction, but out of the understanding that some foundations are false.", func:"You dismantle what is built on illusion, fear, or misalignment in service of what is real.", activation:"Let it collapse. What is true will survive.", ancestors:"The Seventh Fire was clear: the old structures would not survive the transition. You stand in the rubble and begin building again.", element:"Fire · South"},
-  {n:"XVII", deity:"Nut-Nera", name:"The Star", role:"The Vision Keeper", title:"The Vision Keeper", essence:"You hold hope when others have stopped. That is not naivete. It is the rarest form of leadership.", func:"You anchor the long-term possibility of the New Earth when everything short-term looks uncertain.", activation:"Keep the vision alive. It needs you to believe in it.", ancestors:"The elders held the vision of the rainbow across generations of hardship. The star does not waver. Neither do you.", element:"Air · East"},
-  {n:"XVIII", deity:"Khonsu", name:"The Moon", role:"The Intuitive Navigator", title:"The Intuitive Navigator", essence:"You navigate by feeling. What looks like uncertainty to others is a language you are fluent in.", func:"You work in the layers beneath logic: emotion, dream, subconscious current.", activation:"Trust the feeling, not the explanation. You already know.", ancestors:"The moon navigated sailors across oceans long before instruments existed. You carry a compass that logic cannot build.", element:"Water · West"},
-  {n:"XIX", deity:"Ra-Khepri", name:"The Sun", role:"The Activator", title:"The Activator", essence:"You make things visible, including yourself. Your clarity is contagious. Your presence is the activation.", func:"You energize people and projects by showing up fully and without reservation.", activation:"Be seen completely. Your light is not too much.", ancestors:"Ra-Khepri was the force that made life possible. You carry that medicine. Do not hide it.", element:"Fire · South"},
-  {n:"XX", deity:"Thoth-Anubis", name:"Judgment", role:"The Awakener", title:"The Awakener", essence:"You have heard the call. This is the moment you stop preparing and start becoming.", func:"You activate others into their purpose through example, through challenge, through the clarity of your own transformation.", activation:"Answer the call. Rise into what you are meant to become.", ancestors:"The Seventh Fire described a specific moment when the call would go out. You heard it. Answer it.", element:"Spirit · Centre"},
-  {n:"XXI", deity:"Nera", name:"The World", role:"The Living System", title:"The Living System", essence:"You have arrived, not at an end, but at an integration. Every part of the system lives in you now.", func:"You hold the whole: every role, every pathway, every tension. You bridge all the medicines into a single living system.", activation:"Embody the whole. You are not part of the system. You are the system.", ancestors:"The rainbow is not one color. It is all colors appearing together. You are the rainbow.", element:"Earth · North"}
+  {
+    "n": "0",
+    "deity": "Khepra",
+    "name": "The Fool",
+    "role": "Oracle",
+    "title": "The Pioneer",
+    "essence": "You stand at the edge of something you cannot yet name. The path reveals itself only by walking it.",
+    "func": "You open doors that did not exist before you arrived. You enter the uncharted node and signal it is safe to build here. The ecosystem needs people willing to go first.",
+    "activation": "Step forward. The ground will appear.",
+    "ancestors": "The Rainbow Warriors were told they would not know each other by face, but by willingness to begin. You are recognizable by your courage to step into the unknown. This is the beginning the elders foretold.",
+    "element": "Air · East"
+  },
+  {
+    "n": "I",
+    "deity": "Thoth",
+    "name": "The Magus",
+    "role": "Builder",
+    "title": "The Architect of Reality",
+    "essence": "Your mind is not just a tool. It is a force. What you think, you build. What you speak, you create.",
+    "func": "You design systems and frameworks that translate vision into lived reality. You build what others will inhabit: code, structure, strategy, language that makes the invisible functional.",
+    "activation": "Build what does not exist yet. You are the one who can.",
+    "ancestors": "The ancient ones said the builders of the New Earth would carry the language of creation itself. Your mind is that instrument. The system needs what only you can design.",
+    "element": "Air · East"
+  },
+  {
+    "n": "II",
+    "deity": "Isis",
+    "name": "The High Priestess",
+    "role": "Oracle",
+    "title": "The Oracle",
+    "essence": "You see the layer beneath the surface. What others call intuition, you call information.",
+    "func": "You hold strategic vision and pattern recognition simultaneously. You sense where energy is moving before the data confirms it and guide the ecosystem to act on what cannot yet be measured.",
+    "activation": "Trust what you perceive. It is more accurate than you know.",
+    "ancestors": "The Seer Medicine has been carried since before the first sunrise. The elders said the seers would awaken and recognize each other across bloodlines and borders. You are one of them. The earth needs its oracles awake.",
+    "element": "Water · West"
+  },
+  {
+    "n": "III",
+    "deity": "Hathor",
+    "name": "The Empress",
+    "role": "Creator",
+    "title": "The Cultivator",
+    "essence": "Life follows your attention. Beauty is not decoration. It is your method of building.",
+    "func": "You build culture, design experiences, and create environments people return to. You encode the values of the living world into the culture itself through art, ceremony, land, and every experience you design.",
+    "activation": "Tend what is alive. The most important things grow slowly.",
+    "ancestors": "The prophecy spoke of those who would remember how to tend the Earth as living kin. The Creator Medicine carries the ancient knowledge that beauty is not separate from survival. What you cultivate now feeds the seventh generation.",
+    "element": "Earth · North"
+  },
+  {
+    "n": "IV",
+    "deity": "Osiris",
+    "name": "The Emperor",
+    "role": "Builder",
+    "title": "The Structural Architect",
+    "essence": "Structure is not the opposite of freedom. It is what makes freedom possible. You know how to build that.",
+    "func": "You design the systems that allow everything else to function: DAO governance, capital infrastructure, organizational design. Without what you build, the vision has nowhere to land.",
+    "activation": "Build the bones. Everything else grows on what you create.",
+    "ancestors": "The ancient ones built civilizations so precisely the knowledge outlasted the builders by thousands of years. The New Earth needs that same long-sightedness, structures built not for this generation but for the seventh. You carry that responsibility.",
+    "element": "Fire · South"
+  },
+  {
+    "n": "V",
+    "deity": "Amun",
+    "name": "The Hierophant",
+    "role": "Oracle",
+    "title": "The Keeper of Transmission",
+    "essence": "You carry something ancient and make it alive again. Wisdom is only wisdom when it is transmitted.",
+    "func": "You hold the sacred knowledge that must not be lost in the transition: ceremony, initiation, deep teachings. You make them alive for those building the New Earth right now.",
+    "activation": "Teach what you know. Pass the flame.",
+    "ancestors": "The Rainbow Warrior prophecy was carried not in books, but through transmission, elder to initiate, fire to fire. The knowledge that will restore the world is the knowledge almost lost. You are the one who holds it.",
+    "element": "Earth · North"
+  },
+  {
+    "n": "VI",
+    "deity": "Nut",
+    "name": "The Lovers",
+    "role": "Connector",
+    "title": "The Relational Architect",
+    "essence": "The right connection changes everything. You are here to make those connections happen.",
+    "func": "You build bridges between people, ideas, and communities across the New Earth network. The ecosystem is made of nodes, but it lives through the connections you create between them.",
+    "activation": "Stop holding back. The connection you have been hesitating to make is the one that matters.",
+    "ancestors": "The Rainbow Warriors were told they would find each other. That finding moves through people like you, who sense where aligned souls are and bring them together. Every connection you make is one more thread in the net catching what the old world is dropping.",
+    "element": "Water · West"
+  },
+  {
+    "n": "VII",
+    "deity": "Ra",
+    "name": "The Chariot",
+    "role": "Protector",
+    "title": "The Driver",
+    "essence": "Momentum is not accidental. You know how to generate it and direct it so nothing is wasted.",
+    "func": "You move things. Projects, people, initiatives: you are the force that takes vision from the room into the world. You prevent the greatest threat to transformation, which is stall.",
+    "activation": "Take the wheel. The direction is clear. Move.",
+    "ancestors": "The warriors of the rainbow were not passive visionaries. They moved. The prophecy described people who would act when others were still deciding, who would drive toward the world they knew was possible. That is you.",
+    "element": "Fire · South"
+  },
+  {
+    "n": "VIII",
+    "deity": "Sekhmet",
+    "name": "Strength",
+    "role": "Protector",
+    "title": "The Fierce Protector",
+    "essence": "You carry power and you know how to hold it. The fire inside you does not need permission.",
+    "func": "You defend people, mission, and truth in the New Earth ecosystem, not through aggression but through absolute clarity about what you will and will not allow. Sacred things require sacred protection.",
+    "activation": "Stand in your power. The compassion is already there. Lead with the strength.",
+    "ancestors": "The Rainbow Warrior does not fight for conquest. They stand for what is sacred. The elders named this the Warrior Medicine, fire that protects without becoming destruction. Sekmet carried this in ancient Egypt. It is alive in you.",
+    "element": "Fire · South"
+  },
+  {
+    "n": "IX",
+    "deity": "Thoth-Anu",
+    "name": "The Hermit",
+    "role": "Oracle",
+    "title": "The Inner Guide",
+    "essence": "Your most important work happens in solitude. What you bring back from the silence is what others cannot find.",
+    "func": "You hold depth in an ecosystem that moves fast. Without depth, speed becomes a different kind of destruction. Your stillness is the source of the clarity the entire system navigates by.",
+    "activation": "Go inward. The answer lives in the quiet.",
+    "ancestors": "Every warrior society knew the mystic and the warrior were not opposites. The inner guide held the map no one else could read, drawn in silence in the long vigil before dawn. The rainbow warriors need those who have sat with the fire long enough to know where it is going.",
+    "element": "Earth · North"
+  },
+  {
+    "n": "X",
+    "deity": "Duat",
+    "name": "The Wheel",
+    "role": "Builder",
+    "title": "The Cycle Reader",
+    "essence": "Everything moves in cycles. You are one of the rare people who can see them and time your actions accordingly.",
+    "func": "You track patterns across time and help the ecosystem pivot before it needs to. You read the seasons of expansion and contraction and prevent the system from mistaking a contraction for a failure.",
+    "activation": "Read the cycle. Then move with it, not against it.",
+    "ancestors": "The ancient calendars were pattern maps. The Hopi knew the Seventh Fire would arrive in a specific season of the great cycle, and that those who could read cycles would know when to prepare and when to move. You carry that temporal intelligence.",
+    "element": "Fire · South"
+  },
+  {
+    "n": "XI",
+    "deity": "Maat",
+    "name": "Justice",
+    "role": "Oracle",
+    "title": "The Truth Keeper",
+    "essence": "Truth is not a principle for you. It is a physical sensation. When something is off, you feel it before anyone names it.",
+    "func": "You uphold the integrity that keeps the New Earth from replicating the old world's patterns. Governance only works when someone watches the scales, someone who cannot be bought, intimidated, or deceived.",
+    "activation": "Name what is true, even when it costs you something.",
+    "ancestors": "The elders taught that balance is a living law, not a concept. The rainbow warriors needed truth-keepers who could not be corrupted by the very power they were building. The feather and the scale have always been your medicine.",
+    "element": "Air · East"
+  },
+  {
+    "n": "XII",
+    "deity": "Hanged Osiris",
+    "name": "The Hanged One",
+    "role": "Alchemist",
+    "title": "The Perspective Shifter",
+    "essence": "The pause you are resisting is the portal. What looks like delay is actually preparation.",
+    "func": "You hold space for transitions in an ecosystem built for speed. Some of the New Earth's most important work happens in stillness, in the moment before the next form arrives.",
+    "activation": "Surrender to what you cannot control. The new view is only available from here.",
+    "ancestors": "The medicine societies taught there are moments when the only path forward is through stillness, when the warrior must hang suspended between what was and what will be, trusting the vision will come. That suspension is the most courageous posture in the prophecy.",
+    "element": "Water · West"
+  },
+  {
+    "n": "XIII",
+    "deity": "Anubis",
+    "name": "Transformation",
+    "role": "Alchemist",
+    "title": "The Threshold Guardian",
+    "essence": "You are not afraid of endings. That makes you one of the most valuable people in any room.",
+    "func": "You guide people through the hardest passages: endings, deaths, rebirths. The New Earth cannot be built without the old world being released. That releasing requires someone who can hold the threshold without flinching.",
+    "activation": "Walk through. What is on the other side is worth it.",
+    "ancestors": "Anubis weighed the heart against the feather. The threshold between worlds has always been guarded, not to keep people out, but to ensure they arrive on the other side fully transformed. The New Earth is exactly that threshold. You are exactly that guardian.",
+    "element": "Water · West"
+  },
+  {
+    "n": "XIV",
+    "deity": "Maat-Ra",
+    "name": "Temperance",
+    "role": "Alchemist",
+    "title": "The Harmonizer",
+    "essence": "You work with opposing forces until they become a single coherent thing. That is alchemy.",
+    "func": "You create coherence across moving parts: people, systems, timelines. Where others see friction between the old world and the new, you see the exact proportion needed to create the next thing.",
+    "activation": "Trust the blend. What looks like contradiction is becoming something new.",
+    "ancestors": "The rainbow itself is alchemy: many wavelengths of light, separate frequencies, becoming something unified and luminous. You hold the capacity to blend without losing what is essential in each element. That is not compromise. That is the medicine the world is asking for.",
+    "element": "Water · West"
+  },
+  {
+    "n": "XV",
+    "deity": "Set",
+    "name": "The Shadow",
+    "role": "Alchemist",
+    "title": "The Shadow Catalyst",
+    "essence": "You see what is hidden, the lie inside the structure, the fear inside the confidence. That vision is a gift, not a curse.",
+    "func": "You challenge false certainty, expose blind spots, and force the real conversations the New Earth must have. The old world concentrated power through concealment. The New Earth circulates power through radical transparency and you make that possible.",
+    "activation": "Name the thing in the room. Your power lives where others turn away.",
+    "ancestors": "The prophecy warned that rainbow warriors would face not just the shadow of the old world but their own. Set is the revealer. What is suppressed becomes the force that destroys from within. You carry the medicine that prevents that collapse.",
+    "element": "Earth · North"
+  },
+  {
+    "n": "XVI",
+    "deity": "Babel-Khem",
+    "name": "The Tower",
+    "role": "Builder",
+    "title": "The System Breaker",
+    "essence": "You are drawn to structures that need to fall, not out of destruction, but out of the understanding that some foundations are false.",
+    "func": "You dismantle what is built on illusion, fear, or misalignment in service of what is real. Every system that must fall must be met by someone willing to let it. You are that someone.",
+    "activation": "Let it collapse. What is true will survive.",
+    "ancestors": "The Seventh Fire was clear: the old structures would not survive the transition. But the prophecy named those who would stand in the rubble and begin building again, those who understood that collapse is not the end but the clearing. You are among them.",
+    "element": "Fire · South"
+  },
+  {
+    "n": "XVII",
+    "deity": "Nut-Nera",
+    "name": "The Star",
+    "role": "Oracle",
+    "title": "The Vision Keeper",
+    "essence": "You hold hope when others have stopped. That is not naivete. It is the rarest form of leadership.",
+    "func": "You anchor the long-term possibility of the New Earth when everything short-term looks uncertain. The ecosystem needs a lighthouse, someone who holds the vision steady through every storm and every moment of collective doubt.",
+    "activation": "Keep the vision alive. It needs you to believe in it.",
+    "ancestors": "The elders held the vision of the rainbow across generations of hardship and colonial destruction, across the near-extinction of their ways, and it survived because they held it. Now it is your turn. The star does not waver. Neither do you.",
+    "element": "Air · East"
+  },
+  {
+    "n": "XVIII",
+    "deity": "Khonsu",
+    "name": "The Moon",
+    "role": "Alchemist",
+    "title": "The Intuitive Navigator",
+    "essence": "You navigate by feeling. What looks like uncertainty to others is a language you are fluent in.",
+    "func": "You work in the layers beneath logic: emotion, dream, subconscious current. You sense what is moving in a group before it surfaces as words and bring the intelligence of deep water to decisions made in the shallows.",
+    "activation": "Trust the feeling, not the explanation. You already know.",
+    "ancestors": "The moon navigated sailors across oceans long before instruments existed. You carry a compass that logic cannot build, the ability to feel the truth before it can be articulated. The New Earth will need this guidance most in its moments of greatest uncertainty.",
+    "element": "Water · West"
+  },
+  {
+    "n": "XIX",
+    "deity": "Ra-Khepri",
+    "name": "The Sun",
+    "role": "Connector",
+    "title": "The Activator",
+    "essence": "You make things visible, including yourself. Your clarity is contagious. Your presence is the activation.",
+    "func": "You energize people and projects by showing up fully and without reservation. Your aliveness gives others permission to come alive. In the New Earth network, you are the one whose presence shifts the room.",
+    "activation": "Be seen completely. Your light is not too much.",
+    "ancestors": "The rainbow warriors were told they would be recognizable by their light, not by power or position, but by the quality of their presence. Ra-Khepri was the force that made life possible. You carry that medicine. Do not hide it.",
+    "element": "Fire · South"
+  },
+  {
+    "n": "XX",
+    "deity": "Thoth-Anubis",
+    "name": "Judgment",
+    "role": "Protector",
+    "title": "The Awakener",
+    "essence": "You have heard the call. This is the moment you stop preparing and start becoming.",
+    "func": "You activate others into their purpose through example, through challenge, through the clarity of your own transformation. You hold initiation spaces and refuse to let the people around you stay smaller than they actually are.",
+    "activation": "Answer the call. Rise into what you are meant to become.",
+    "ancestors": "The Seventh Fire described a specific moment when the call would go out to all people who carried the medicine. Those who heard it and answered would be builders of the New Earth. Those who did not would remain in the old one. You heard it. Answer it.",
+    "element": "Spirit · Centre"
+  },
+  {
+    "n": "XXI",
+    "deity": "Nera",
+    "name": "The World",
+    "role": "All",
+    "title": "The Living System",
+    "essence": "You have arrived, not at an end, but at an integration. Every part of the system lives in you now.",
+    "func": "You hold the whole: every role, every pathway, every tension. You know how to work with all of it. You bridge all the guilds, all the medicines, all the lineages into a single living system.",
+    "activation": "Embody the whole. You are not part of the system. You are the system.",
+    "ancestors": "The rainbow is not one color. It is all colors, each distinct, appearing together in a single arc of light only possible because of water and sun working in perfect proportion. You are the rainbow. The living integration of every medicine the prophecy called forth.",
+    "element": "Earth · North"
+  }
 ];
 
 const QS = {
@@ -400,7 +643,7 @@ const UI = {
     cardLabels:{essence:'✦ Esencia', func:'⊹ Función'}
   },
   EN:{
-    langBtn:'🌐 EN', statusText:'Nera Cloud active', subtitle:'New Earth Role Activation · 2026',
+    langBtn:'🌐 EN', statusText:'CloudNera', subtitle:'New Earth Role Activation · 2026',
     tabOracle:'𓂀 Oracle', tabTarot:'⊹ Templo',
     oracleStep1Tag:'Step I · Identity', lblName:'Your Name', phName:'Write your name...', lblBirth:'Birth Date', btnContinueOracle:'Continue ✦',
     oracleStep2Tag:'Step II · The Question', oracleIntro:'The oracle has prepared a question for you.<br>You can edit it or write your own.', lblQuestionOracle:'Your Question',
@@ -473,6 +716,7 @@ function applyLanguage(){
   document.getElementById('tarotResultHeader').textContent = tx.tarotResultHeader;
   document.getElementById('btnCopiar').textContent = tx.btnCopyResult;
   const pdfBtn=document.getElementById('btnPDF'); if(pdfBtn) pdfBtn.textContent = idioma==='ES' ? '⬇ Guardar PDF' : '⬇ Save PDF';
+  const pdfMain=document.getElementById('btnPDFMain'); if(pdfMain) pdfMain.textContent = idioma==='ES' ? '⬇ Guardar lectura PDF' : '⬇ Save reading PDF';
   if(!document.getElementById('step2').classList.contains('hidden') && !document.getElementById('oQuestion').value){ refreshQ(); }
 }
 
@@ -614,6 +858,44 @@ function mostrarCartas(){
     div.style.animationDelay=(i*0.18)+'s';
     div.style.opacity='0';
     div.dataset.revealed='0';
+
+    const glow=document.createElement('div');
+    glow.className='carta-glow';
+
+    const real=document.createElement('img');
+    real.className='realCarta';
+    real.src='./'+c+'.jpg';
+    real.alt=arc.deity;
+    real.onerror=function(){
+      if(this.dataset.triedPng!=='1'){
+        this.dataset.triedPng='1';
+        this.src='./'+c+'.png';
+      }else{
+        this.style.display='none';
+      }
+    };
+
+    const cover=document.createElement('img');
+    cover.className='coverCarta';
+    cover.alt='Cover';
+    cover.dataset.try='0';
+    const covers=['./cover.jpg','./cover.png','./Cover.jpg','./Cover.png','cover.jpg','cover.png'];
+    cover.src=covers[0];
+    cover.onerror=function(){
+      let next=parseInt(this.dataset.try || '0',10)+1;
+      if(next<covers.length){
+        this.dataset.try=String(next);
+        this.src=covers[next];
+      }else{
+        this.style.display='none';
+        console.warn('No se encontró cover.jpg / cover.png en la carpeta del HTML.');
+      }
+    };
+
+    const nombre=document.createElement('div');
+    nombre.className='nombreCarta';
+    nombre.textContent=`${arc.n} — ${arc.deity} — ${arc.name} — ${arc.title}`;
+
     div.onclick=()=>{
       if(div.dataset.revealed==='0'){
         div.dataset.revealed='1';
@@ -624,17 +906,13 @@ function mostrarCartas(){
       showCard(c-1);
     };
 
-    const glow=document.createElement('div'); glow.className='carta-glow';
-    const img=document.createElement('img'); img.src='./'+c+'.jpg'; img.alt=arc.deity; img.onerror=function(){ if(this.src.endsWith('.jpg')) this.src='./'+c+'.png'; else this.style.display='none'; };
-    const cover=document.createElement('img'); cover.className='coverCarta'; cover.src='./cover.jpg'; cover.alt='Cover';
-    cover.onerror=function(){ this.style.display='none'; };
-    const nombre=document.createElement('div'); nombre.className='nombreCarta'; nombre.textContent=`${arc.n} — ${arc.deity} — ${arc.name} — ${arc.role}`;
-
-    div.appendChild(glow); div.appendChild(img); div.appendChild(cover); div.appendChild(nombre);
+    div.appendChild(glow);
+    div.appendChild(real);
+    div.appendChild(cover);
+    div.appendChild(nombre);
     cont.appendChild(div);
   });
 }
-
 function showCard(idx){
   const a=ARCANAS[idx];
   const labels=t().cardLabels;
@@ -707,7 +985,7 @@ function exportReadingPDF(){
   const lectura = document.getElementById('resultadoTexto').innerText.trim();
   const cartas = tiradaActual.map(c => {
     const a = ARCANAS[c-1];
-    return `${a.n} — ${a.deity} — ${a.title}`;
+    return `${a.n} — ${a.deity} — ${a.name} — ${a.title}`;
   }).join('\n');
 
   if(!tiradaActual.length){ alert(t().alertDraw); return; }
