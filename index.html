@@ -8,14 +8,14 @@
 <style>
 :root{
   --gold:#c9a84c; --gold-light:#f0d080; --gold-glow:#ffd700;
-  --deep:#07040a; --deep-2:#0e0916; --crimson:#6b0000; --teal:#27ae7f; --cream:#f5ede0;
+  --deep:#03140b; --deep-2:#062012; --crimson:#0f6b32; --teal:#27ae7f; --cream:#f5ede0;
   --muted:rgba(201,168,76,.45); --line:rgba(201,168,76,.16);
 }
 *{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
 body{
   font-family:'Cormorant Garamond',serif;
-  background:linear-gradient(180deg,#07040a 0%,#0c0712 55%,#07040a 100%);
+  background:linear-gradient(180deg,#03140b 0%,#062012 55%,#03140b 100%);
   color:var(--cream);
   overflow-x:hidden;
   min-height:100vh;
@@ -24,7 +24,7 @@ button,input,textarea,select{font:inherit}
 .bg-layer,.stars{position:fixed;inset:0;pointer-events:none;z-index:0}
 .bg-layer{
   background:
-  radial-gradient(ellipse 140% 55% at 50% 0%, rgba(107,0,0,.22) 0%, transparent 55%),
+  radial-gradient(ellipse 140% 55% at 50% 0%, rgba(39,174,127,.24) 0%, transparent 55%),
   radial-gradient(ellipse 75% 50% at 5% 92%, rgba(39,174,127,.1) 0%, transparent 50%),
   radial-gradient(ellipse 75% 50% at 95% 10%, rgba(201,168,76,.05) 0%, transparent 50%);
 }
@@ -90,26 +90,26 @@ input:focus,textarea:focus,select:focus{border-color:var(--gold);background:rgba
 .select-wrap::after{content:'⌄';position:absolute;right:14px;top:50%;transform:translateY(-50%);color:var(--gold);pointer-events:none;font-size:18px}
 select{-webkit-appearance:none;appearance:none}
 .btn-row{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:10px}
-.btn-primary{padding:13px 28px;background:linear-gradient(135deg,#5a1010,#6b0000,#5a1010);color:var(--gold-light);border:1px solid rgba(201,168,76,.38);box-shadow:0 4px 18px rgba(107,0,0,.28);font-size:12px;letter-spacing:1px}
-.btn-primary:hover{transform:translateY(-2px);box-shadow:0 6px 28px rgba(107,0,0,.45)}
+.btn-primary{padding:13px 28px;background:linear-gradient(135deg,#064d24,#0f6b32,#064d24);color:var(--gold-light);border:1px solid rgba(201,168,76,.38);box-shadow:0 4px 18px rgba(39,174,127,.22);font-size:12px;letter-spacing:1px}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 6px 28px rgba(39,174,127,.36)}
 .btn-secondary{padding:12px 22px;background:transparent;color:var(--gold);border:1px solid rgba(201,168,76,.28);font-size:12px;letter-spacing:1px}
 .btn-secondary:hover,.btn-ghost:hover{background:rgba(201,168,76,.06);border-color:var(--gold);color:var(--gold)}
 .btn-ghost{padding:10px 18px;background:transparent;color:rgba(201,168,76,.42);border:1px solid rgba(201,168,76,.16);font-size:11px;letter-spacing:1px}
 .steps{display:flex;justify-content:center;align-items:center;gap:8px;margin:0 auto 24px;max-width:320px}
 .step-dot{width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;border:1px solid rgba(201,168,76,.22);font-family:'Cinzel Decorative',serif;font-size:11px;color:rgba(201,168,76,.28)}
 .step-dot.done{background:rgba(201,168,76,.08);color:var(--gold);border-color:rgba(201,168,76,.42)}
-.step-dot.active{background:rgba(107,0,0,.28);color:var(--gold-light);border-color:var(--gold);box-shadow:0 0 16px rgba(201,168,76,.18)}
+.step-dot.active{background:rgba(39,174,127,.22);color:var(--gold-light);border-color:var(--gold);box-shadow:0 0 16px rgba(201,168,76,.18)}
 .step-line{flex:1;height:1px;background:rgba(201,168,76,.12)}
 .oracle-out{display:none;max-width:760px;margin:0 auto;background:linear-gradient(160deg,rgba(12,7,16,.98),rgba(18,10,22,.99));border:1px solid rgba(201,168,76,.2);border-radius:22px;overflow:hidden}
 .oracle-out.visible{display:block;animation:fadeUp .55s ease}
-.oracle-banner{background:linear-gradient(135deg,rgba(107,0,0,.5),rgba(25,10,38,.92));padding:26px 24px 20px;border-bottom:1px solid rgba(201,168,76,.12);text-align:center}
+.oracle-banner{background:linear-gradient(135deg,rgba(15,107,50,.52),rgba(6,32,18,.94));padding:26px 24px 20px;border-bottom:1px solid rgba(201,168,76,.12);text-align:center}
 .oracle-card-img{width:180px;max-width:90%;border-radius:14px;display:none;margin:0 auto 18px;box-shadow:0 0 26px rgba(0,0,0,.45);border:1px solid rgba(201,168,76,.22)}
 .oracle-archetype{font-family:'Cinzel Decorative',serif;font-size:21px;color:var(--gold-light);letter-spacing:3px;margin-bottom:4px}
 .oracle-role{font-style:italic;font-size:13px;letter-spacing:3px;color:rgba(201,168,76,.5)}
 .oracle-fields{padding:22px 24px}
 .o-field{text-align:left;border-left:2px solid rgba(201,168,76,.18);padding-left:16px;margin-bottom:22px}
 .o-field.msg{border-color:rgba(201,168,76,.48)}
-.o-field.shad{border-color:rgba(107,0,0,.6)}
+.o-field.shad{border-color:rgba(15,107,50,.6)}
 .o-field.activ{border-color:rgba(39,174,127,.45)}
 .o-field.next{border-color:rgba(201,168,76,.28)}
 .o-lbl{display:block;font-family:'Cinzel Decorative',serif;font-size:10px;letter-spacing:3px;color:var(--gold);opacity:.62;margin-bottom:8px}
@@ -124,9 +124,14 @@ select{-webkit-appearance:none;appearance:none}
 .carta{width:128px;height:232px;position:relative;overflow:hidden;border-radius:14px;box-shadow:0 8px 26px rgba(0,0,0,.62);cursor:pointer;transition:transform .2s}
 .carta:hover{transform:translateY(-4px)}
 .carta img{width:100%;height:196px;display:block;object-fit:cover;border-radius:14px}
-.sombraCarta{position:absolute;top:0;left:0;width:100%;height:196px;border-radius:14px;background:radial-gradient(ellipse at center,rgba(40,0,25,.92) 0%,rgba(7,4,10,.98) 100%);animation:revela 1.15s forwards;animation-delay:4.3s}
-.carta-glow{position:absolute;inset:-3px;border-radius:16px;background:linear-gradient(135deg,rgba(201,168,76,.42),rgba(107,0,0,.38),rgba(201,168,76,.42));z-index:-1;opacity:0;animation:cglow .8s forwards;animation-delay:5.05s}
+.sombraCarta{position:absolute;top:0;left:0;width:100%;height:196px;border-radius:14px;background:radial-gradient(ellipse at center,rgba(6,32,18,.92) 0%,rgba(3,20,11,.98) 100%)}
+.carta-glow{position:absolute;inset:-3px;border-radius:16px;background:linear-gradient(135deg,rgba(201,168,76,.42),rgba(39,174,127,.38),rgba(201,168,76,.42));z-index:-1;opacity:0;animation:cglow .8s forwards;animation-delay:5.05s}
 .nombreCarta{font-size:11px;font-style:italic;margin-top:6px;color:var(--gold);display:none;line-height:1.3;text-align:center}
+
+.coverCarta{position:absolute;top:0;left:0;width:100%;height:196px;object-fit:cover;border-radius:14px;z-index:3;transition:opacity 1.35s ease,transform 1.35s ease;box-shadow:inset 0 0 30px rgba(0,0,0,.65)}
+.carta.revealed .coverCarta{opacity:0;transform:scale(1.08);pointer-events:none}
+.carta.revealed .nombreCarta{display:block}
+
 @keyframes torbellino{
   0%{transform:translateX(-480px) rotate(0deg) scale(.1);opacity:0}
   20%{transform:translateX(-180px) rotate(500deg) scale(.4);opacity:.4}
@@ -148,7 +153,7 @@ select{-webkit-appearance:none;appearance:none}
 @keyframes dotB{0%,80%,100%{transform:scale(.5);opacity:.28}40%{transform:scale(1);opacity:1}}
 .modal-overlay{display:none;position:fixed;inset:0;background:rgba(5,2,8,.92);z-index:999;justify-content:center;align-items:center;backdrop-filter:blur(10px);padding:18px}
 .modal-overlay.open{display:flex;animation:fadeIn .3s ease}
-.modal{background:linear-gradient(145deg,#0e0915,#160c1e,#0b0810);border:1px solid rgba(201,168,76,.26);border-radius:20px;padding:30px 28px;width:100%;max-width:520px;box-shadow:0 0 80px rgba(107,0,0,.28),inset 0 1px 0 rgba(201,168,76,.1);position:relative;max-height:90vh;overflow-y:auto}
+.modal{background:linear-gradient(145deg,#0e0915,#160c1e,#0b0810);border:1px solid rgba(201,168,76,.26);border-radius:20px;padding:30px 28px;width:100%;max-width:520px;box-shadow:0 0 80px rgba(39,174,127,.22),inset 0 1px 0 rgba(201,168,76,.1);position:relative;max-height:90vh;overflow-y:auto}
 .modal-close{position:absolute;top:10px;right:14px;background:none;border:none;color:rgba(201,168,76,.38);font-size:25px;cursor:pointer}
 .modal-close:hover{color:var(--gold)}
 .cd-num{font-family:'Cinzel Decorative',serif;font-size:10px;color:rgba(201,168,76,.38);letter-spacing:4px;margin-bottom:6px}
@@ -170,12 +175,36 @@ select{-webkit-appearance:none;appearance:none}
   .grid7{grid-template-columns:repeat(4,88px)}
   .grid22{grid-template-columns:repeat(4,82px)}
   .carta{width:86px;height:168px}
-  .carta img,.sombraCarta{height:138px}
+  .carta img,.sombraCarta,.coverCarta{height:138px}
   .panel,.oracle-fields,#resultado{padding:18px 16px}
   .oracle-card-img{width:140px}
   .topbar{gap:8px}
 }
+
+/* Ajustes verdes NERA */
+:root{
+  --gold:#7CFF9B; --gold-light:#B7FFC7; --gold-glow:#00ff66;
+  --deep:#021007; --deep-2:#05200f; --crimson:#0a5f2c; --teal:#28ff88; --cream:#eaffef;
+  --muted:rgba(124,255,155,.45); --line:rgba(124,255,155,.22);
+}
+body{background:linear-gradient(180deg,#021007 0%,#062414 55%,#021007 100%);}
+.bg-layer{
+  background:
+  radial-gradient(ellipse 140% 55% at 50% 0%, rgba(0,255,102,.16) 0%, transparent 55%),
+  radial-gradient(ellipse 75% 50% at 5% 92%, rgba(39,255,127,.13) 0%, transparent 50%),
+  radial-gradient(ellipse 75% 50% at 95% 10%, rgba(124,255,155,.12) 0%, transparent 50%);
+}
+h1{background:linear-gradient(135deg,#0a6b32 0%,#37ff82 35%,#c8ffd6 50%,#37ff82 70%,#0a6b32 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.panel,.oracle-out,#resultado,.modal{background:linear-gradient(135deg,rgba(2,25,10,.98),rgba(3,36,16,.99));border-color:rgba(124,255,155,.24);}
+input[type="text"],input[type="date"],textarea,select{background:rgba(7,70,31,.38)!important;border-color:rgba(124,255,155,.42)!important;color:#eaffef!important;}
+input::placeholder,textarea::placeholder{color:rgba(183,255,199,.55)!important;}
+.btn-primary{background:linear-gradient(135deg,#084d25,#0f8f40,#084d25);color:#eaffef;border-color:rgba(124,255,155,.62);box-shadow:0 4px 18px rgba(0,255,102,.18);}
+.btn-secondary,.btn-ghost,.tab,.lang-btn{border-color:rgba(124,255,155,.35);color:rgba(183,255,199,.78);}
+.tab.active,.lang-btn:hover,.btn-secondary:hover,.btn-ghost:hover{background:rgba(0,255,102,.09);color:#b7ffc7;border-color:rgba(124,255,155,.75);}
+#instrucciones{display:none!important;}
+
 </style>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 </head>
 <body>
 <div class="bg-layer"></div>
@@ -186,7 +215,7 @@ select{-webkit-appearance:none;appearance:none}
     <h1>NERA Oracle</h1>
     <p class="subtitle" id="headerSubtitle">New Earth Role Activation · 2026</p>
     <div class="topbar">
-      <span class="pill"><span class="status-dot"></span><span id="statusText">Lectura IA activa</span></span>
+      <span class="pill"><span class="status-dot"></span><span id="statusText">CloudNera</span></span>
       <button class="lang-btn" id="langBtn" onclick="toggleLanguage()">🌐 ES</button>
     </div>
   </header>
@@ -195,7 +224,7 @@ select{-webkit-appearance:none;appearance:none}
 
   <div class="toolbar">
     <button class="tab active" id="tab-oracle" onclick="showTab('oracle')">𓂀 Oracle</button>
-    <button class="tab" id="tab-tarot" onclick="showTab('tarot')">⊹ Tarot</button>
+    <button class="tab" id="tab-tarot" onclick="showTab('tarot')">⊹ Templo</button>
   </div>
 
   <section id="seccionOracle">
@@ -256,7 +285,7 @@ select{-webkit-appearance:none;appearance:none}
 
   <section id="seccionTarot">
     <div class="panel">
-      <span class="panel-tag" id="tarotTag">Lectura de Tarot</span>
+      <span class="panel-tag" id="tarotTag">Lectura del Templo</span>
       <div style="display:flex;gap:12px;flex-wrap:wrap;margin-bottom:14px;">
         <div style="flex:2;min-width:190px;">
           <label id="lblTarotQuestion">Tu Pregunta</label>
@@ -290,9 +319,9 @@ select{-webkit-appearance:none;appearance:none}
 
     <div class="btn-row hidden" id="copyTarotRow" style="margin:14px auto;">
       <button class="btn-ghost" id="btnCopiar" onclick="copyTarot()">⎘ Copiar Resultado</button>
+      <button class="btn-ghost" id="btnPDF" onclick="exportReadingPDF()">⬇ Guardar PDF</button>
     </div>
 
-    <div id="instrucciones"></div>
   </section>
 </div>
 
@@ -307,28 +336,28 @@ select{-webkit-appearance:none;appearance:none}
 const API_URL = "https://nerareadsystem.pages.dev/api";
 
 const ARCANAS = [
-  {n:"0", deity:"Khepra", name:"Khepra", role:"Oracle", title:"The Pioneer", essence:"You stand at the edge of something you cannot yet name. The path reveals itself only by walking it.", func:"You open doors that did not exist before you arrived. You enter the uncharted node and signal it is safe to build here.", activation:"Step forward. The ground will appear.", ancestors:"The Rainbow Warriors were told they would not know each other by face, but by willingness to begin. This is the beginning the elders foretold.", element:"Air · East"},
-  {n:"I", deity:"Thoth", name:"Thoth", role:"Builder", title:"The Architect of Reality", essence:"Your mind is not just a tool. It is a force. What you think, you build. What you speak, you create.", func:"You design systems and frameworks that translate vision into lived reality. You build what others will inhabit.", activation:"Build what does not exist yet. You are the one who can.", ancestors:"The ancient ones said the builders of the New Earth would carry the language of creation itself. Your mind is that instrument.", element:"Air · East"},
-  {n:"II", deity:"Isis", name:"Isis", role:"Oracle", title:"The Oracle", essence:"You see the layer beneath the surface. What others call intuition, you call information.", func:"You hold strategic vision and pattern recognition simultaneously. You sense where energy is moving before the data confirms it.", activation:"Trust what you perceive. It is more accurate than you know.", ancestors:"The Seer Medicine has been carried since before the first sunrise. You are one of them. The earth needs its oracles awake.", element:"Water · West"},
-  {n:"III", deity:"Hathor", name:"Hathor", role:"Creator", title:"The Cultivator", essence:"Life follows your attention. Beauty is not decoration. It is your method of building.", func:"You build culture, design experiences, and create environments people return to.", activation:"Tend what is alive. The most important things grow slowly.", ancestors:"The prophecy spoke of those who would remember how to tend the Earth as living kin. What you cultivate now feeds the seventh generation.", element:"Earth · North"},
-  {n:"IV", deity:"Osiris", name:"Osiris", role:"Builder", title:"The Structural Architect", essence:"Structure is not the opposite of freedom. It is what makes freedom possible. You know how to build that.", func:"You design the systems that allow everything else to function: governance, infrastructure, organizational design.", activation:"Build the bones. Everything else grows on what you create.", ancestors:"The ancient ones built civilizations so precisely the knowledge outlasted the builders by thousands of years.", element:"Fire · South"},
-  {n:"V", deity:"Amun", name:"Amun", role:"Oracle", title:"The Keeper of Transmission", essence:"You carry something ancient and make it alive again. Wisdom is only wisdom when it is transmitted.", func:"You hold the sacred knowledge that must not be lost in the transition: ceremony, initiation, deep teachings.", activation:"Teach what you know. Pass the flame.", ancestors:"The Rainbow Warrior prophecy was carried not in books, but through transmission, elder to initiate, fire to fire.", element:"Earth · North"},
-  {n:"VI", deity:"Nut", name:"Nut", role:"Connector", title:"The Relational Architect", essence:"The right connection changes everything. You are here to make those connections happen.", func:"You build bridges between people, ideas, and communities across the New Earth network.", activation:"Stop holding back. The connection you have been hesitating to make is the one that matters.", ancestors:"Every connection you make is one more thread in the net catching what the old world is dropping.", element:"Water · West"},
-  {n:"VII", deity:"Ra", name:"Ra", role:"Protector", title:"The Driver", essence:"Momentum is not accidental. You know how to generate it and direct it so nothing is wasted.", func:"You move things. Projects, people, initiatives: you are the force that takes vision from the room into the world.", activation:"Take the wheel. The direction is clear. Move.", ancestors:"The warriors of the rainbow were not passive visionaries. They moved. That is you.", element:"Fire · South"},
-  {n:"VIII", deity:"Maat", name:"Maat", role:"Protector", title:"The Fierce Protector", essence:"You carry power and you know how to hold it. The fire inside you does not need permission.", func:"You defend people, mission, and truth in the New Earth ecosystem through absolute clarity about what you will and will not allow.", activation:"Stand in your power. The compassion is already there. Lead with the strength.", ancestors:"Sekhmet carried this in ancient Egypt. It is alive in you.", element:"Fire · South"},
-  {n:"IX", deity:"Thoth-Anu", name:"Thoth-Anu", role:"Oracle", title:"The Inner Guide", essence:"Your most important work happens in solitude. What you bring back from the silence is what others cannot find.", func:"You hold depth in an ecosystem that moves fast. Your stillness is the source of the clarity the entire system navigates by.", activation:"Go inward. The answer lives in the quiet.", ancestors:"Every warrior society knew the mystic and the warrior were not opposites. The rainbow warriors need those who have sat with the fire long enough.", element:"Earth · North"},
-  {n:"X", deity:"Duat", name:"Duat", role:"Builder", title:"The Cycle Reader", essence:"Everything moves in cycles. You are one of the rare people who can see them and time your actions accordingly.", func:"You track patterns across time and help the ecosystem pivot before it needs to.", activation:"Read the cycle. Then move with it, not against it.", ancestors:"The Hopi knew the Seventh Fire would arrive in a specific season of the great cycle. You carry that temporal intelligence.", element:"Fire · South"},
-  {n:"XI", deity:"Sekmet", name:"Sekmet", role:"Oracle", title:"The Truth Keeper", essence:"Truth is not a principle for you. It is a physical sensation. When something is off, you feel it before anyone names it.", func:"You uphold the integrity that keeps the New Earth from replicating the old world's patterns.", activation:"Name what is true, even when it costs you something.", ancestors:"The elders taught that balance is a living law, not a concept. The feather and the scale have always been your medicine.", element:"Air · East"},
-  {n:"XII", deity:"Hanged Osiris", name:"Hanged Osiris", role:"Alchemist", title:"The Perspective Shifter", essence:"The pause you are resisting is the portal. What looks like delay is actually preparation.", func:"You hold space for transitions in an ecosystem built for speed.", activation:"Surrender to what you cannot control. The new view is only available from here.", ancestors:"That suspension is the most courageous posture in the prophecy.", element:"Water · West"},
-  {n:"XIII", deity:"Anubis", name:"Anubis", role:"Alchemist", title:"The Threshold Guardian", essence:"You are not afraid of endings. That makes you one of the most valuable people in any room.", func:"You guide people through the hardest passages: endings, deaths, rebirths.", activation:"Walk through. What is on the other side is worth it.", ancestors:"Anubis weighed the heart against the feather. You are exactly that guardian.", element:"Water · West"},
-  {n:"XIV", deity:"Maat-Ra", name:"Maat-Ra", role:"Alchemist", title:"The Harmonizer", essence:"You work with opposing forces until they become a single coherent thing. That is alchemy.", func:"You create coherence across moving parts: people, systems, timelines.", activation:"Trust the blend. What looks like contradiction is becoming something new.", ancestors:"The rainbow itself is alchemy. That is not compromise. That is the medicine the world is asking for.", element:"Water · West"},
-  {n:"XV", deity:"Set", name:"Set", role:"Alchemist", title:"The Shadow Catalyst", essence:"You see what is hidden, the lie inside the structure, the fear inside the confidence. That vision is a gift, not a curse.", func:"You challenge false certainty, expose blind spots, and force the real conversations the New Earth must have.", activation:"Name the thing in the room. Your power lives where others turn away.", ancestors:"You carry the medicine that prevents collapse from within.", element:"Earth · North"},
-  {n:"XVI", deity:"Babel-Khem", name:"Babel-Khem", role:"Builder", title:"The System Breaker", essence:"You are drawn to structures that need to fall, not out of destruction, but out of the understanding that some foundations are false.", func:"You dismantle what is built on illusion, fear, or misalignment in service of what is real.", activation:"Let it collapse. What is true will survive.", ancestors:"The Seventh Fire was clear: the old structures would not survive the transition. You stand in the rubble and begin building again.", element:"Fire · South"},
-  {n:"XVII", deity:"Nut-Nera", name:"Nut-Nera", role:"Oracle", title:"The Vision Keeper", essence:"You hold hope when others have stopped. That is not naivete. It is the rarest form of leadership.", func:"You anchor the long-term possibility of the New Earth when everything short-term looks uncertain.", activation:"Keep the vision alive. It needs you to believe in it.", ancestors:"The elders held the vision of the rainbow across generations of hardship. The star does not waver. Neither do you.", element:"Air · East"},
-  {n:"XVIII", deity:"Khonsu", name:"Khonsu", role:"Alchemist", title:"The Intuitive Navigator", essence:"You navigate by feeling. What looks like uncertainty to others is a language you are fluent in.", func:"You work in the layers beneath logic: emotion, dream, subconscious current.", activation:"Trust the feeling, not the explanation. You already know.", ancestors:"The moon navigated sailors across oceans long before instruments existed. You carry a compass that logic cannot build.", element:"Water · West"},
-  {n:"XIX", deity:"Ra-Khepri", name:"Ra-Khepri", role:"Connector", title:"The Activator", essence:"You make things visible, including yourself. Your clarity is contagious. Your presence is the activation.", func:"You energize people and projects by showing up fully and without reservation.", activation:"Be seen completely. Your light is not too much.", ancestors:"Ra-Khepri was the force that made life possible. You carry that medicine. Do not hide it.", element:"Fire · South"},
-  {n:"XX", deity:"Thoth-Anubis", name:"Thoth-Anubis", role:"Protector", title:"The Awakener", essence:"You have heard the call. This is the moment you stop preparing and start becoming.", func:"You activate others into their purpose through example, through challenge, through the clarity of your own transformation.", activation:"Answer the call. Rise into what you are meant to become.", ancestors:"The Seventh Fire described a specific moment when the call would go out. You heard it. Answer it.", element:"Spirit · Centre"},
-  {n:"XXI", deity:"Nera", name:"Nera", role:"All", title:"The Living System", essence:"You have arrived, not at an end, but at an integration. Every part of the system lives in you now.", func:"You hold the whole: every role, every pathway, every tension. You bridge all the medicines into a single living system.", activation:"Embody the whole. You are not part of the system. You are the system.", ancestors:"The rainbow is not one color. It is all colors appearing together. You are the rainbow.", element:"Earth · North"}
+  {n:"0", deity:"Khepra", name:"The Fool", role:"The Pioneer", title:"The Pioneer", essence:"You stand at the edge of something you cannot yet name. The path reveals itself only by walking it.", func:"You open doors that did not exist before you arrived. You enter the uncharted node and signal it is safe to build here.", activation:"Step forward. The ground will appear.", ancestors:"The Rainbow Warriors were told they would not know each other by face, but by willingness to begin. This is the beginning the elders foretold.", element:"Air · East"},
+  {n:"I", deity:"Thoth", name:"The Magus", role:"The Architect of Reality", title:"The Architect of Reality", essence:"Your mind is not just a tool. It is a force. What you think, you build. What you speak, you create.", func:"You design systems and frameworks that translate vision into lived reality. You build what others will inhabit.", activation:"Build what does not exist yet. You are the one who can.", ancestors:"The ancient ones said the builders of the New Earth would carry the language of creation itself. Your mind is that instrument.", element:"Air · East"},
+  {n:"II", deity:"Isis", name:"The High Priestess", role:"The Oracle", title:"The Oracle", essence:"You see the layer beneath the surface. What others call intuition, you call information.", func:"You hold strategic vision and pattern recognition simultaneously. You sense where energy is moving before the data confirms it.", activation:"Trust what you perceive. It is more accurate than you know.", ancestors:"The Seer Medicine has been carried since before the first sunrise. You are one of them. The earth needs its oracles awake.", element:"Water · West"},
+  {n:"III", deity:"Hathor", name:"The Empress", role:"The Cultivator", title:"The Cultivator", essence:"Life follows your attention. Beauty is not decoration. It is your method of building.", func:"You build culture, design experiences, and create environments people return to.", activation:"Tend what is alive. The most important things grow slowly.", ancestors:"The prophecy spoke of those who would remember how to tend the Earth as living kin. What you cultivate now feeds the seventh generation.", element:"Earth · North"},
+  {n:"IV", deity:"Osiris", name:"The Emperor", role:"The Structural Architect", title:"The Structural Architect", essence:"Structure is not the opposite of freedom. It is what makes freedom possible. You know how to build that.", func:"You design the systems that allow everything else to function: governance, infrastructure, organizational design.", activation:"Build the bones. Everything else grows on what you create.", ancestors:"The ancient ones built civilizations so precisely the knowledge outlasted the builders by thousands of years.", element:"Fire · South"},
+  {n:"V", deity:"Amun", name:"The Hierophant", role:"The Keeper of Transmission", title:"The Keeper of Transmission", essence:"You carry something ancient and make it alive again. Wisdom is only wisdom when it is transmitted.", func:"You hold the sacred knowledge that must not be lost in the transition: ceremony, initiation, deep teachings.", activation:"Teach what you know. Pass the flame.", ancestors:"The Rainbow Warrior prophecy was carried not in books, but through transmission, elder to initiate, fire to fire.", element:"Earth · North"},
+  {n:"VI", deity:"Nut", name:"The Lovers", role:"The Relational Architect", title:"The Relational Architect", essence:"The right connection changes everything. You are here to make those connections happen.", func:"You build bridges between people, ideas, and communities across the New Earth network.", activation:"Stop holding back. The connection you have been hesitating to make is the one that matters.", ancestors:"Every connection you make is one more thread in the net catching what the old world is dropping.", element:"Water · West"},
+  {n:"VII", deity:"Ra", name:"The Chariot", role:"The Driver", title:"The Driver", essence:"Momentum is not accidental. You know how to generate it and direct it so nothing is wasted.", func:"You move things. Projects, people, initiatives: you are the force that takes vision from the room into the world.", activation:"Take the wheel. The direction is clear. Move.", ancestors:"The warriors of the rainbow were not passive visionaries. They moved. That is you.", element:"Fire · South"},
+  {n:"VIII", deity:"Sekhmet", name:"Strength", role:"The Fierce Protector", title:"The Fierce Protector", essence:"You carry power and you know how to hold it. The fire inside you does not need permission.", func:"You defend people, mission, and truth in the New Earth ecosystem through absolute clarity about what you will and will not allow.", activation:"Stand in your power. The compassion is already there. Lead with the strength.", ancestors:"Sekhmet carried this in ancient Egypt. It is alive in you.", element:"Fire · South"},
+  {n:"IX", deity:"Thoth-Anu", name:"The Hermit", role:"The Inner Guide", title:"The Inner Guide", essence:"Your most important work happens in solitude. What you bring back from the silence is what others cannot find.", func:"You hold depth in an ecosystem that moves fast. Your stillness is the source of the clarity the entire system navigates by.", activation:"Go inward. The answer lives in the quiet.", ancestors:"Every warrior society knew the mystic and the warrior were not opposites. The rainbow warriors need those who have sat with the fire long enough.", element:"Earth · North"},
+  {n:"X", deity:"Duat", name:"The Wheel", role:"The Cycle Reader", title:"The Cycle Reader", essence:"Everything moves in cycles. You are one of the rare people who can see them and time your actions accordingly.", func:"You track patterns across time and help the ecosystem pivot before it needs to.", activation:"Read the cycle. Then move with it, not against it.", ancestors:"The Hopi knew the Seventh Fire would arrive in a specific season of the great cycle. You carry that temporal intelligence.", element:"Fire · South"},
+  {n:"XI", deity:"Maat", name:"Justice", role:"The Truth Keeper", title:"The Truth Keeper", essence:"Truth is not a principle for you. It is a physical sensation. When something is off, you feel it before anyone names it.", func:"You uphold the integrity that keeps the New Earth from replicating the old world's patterns.", activation:"Name what is true, even when it costs you something.", ancestors:"The elders taught that balance is a living law, not a concept. The feather and the scale have always been your medicine.", element:"Air · East"},
+  {n:"XII", deity:"Hanged Osiris", name:"The Hanged One", role:"The Perspective Shifter", title:"The Perspective Shifter", essence:"The pause you are resisting is the portal. What looks like delay is actually preparation.", func:"You hold space for transitions in an ecosystem built for speed.", activation:"Surrender to what you cannot control. The new view is only available from here.", ancestors:"That suspension is the most courageous posture in the prophecy.", element:"Water · West"},
+  {n:"XIII", deity:"Anubis", name:"Transformation (Death)", role:"The Threshold Guardian", title:"The Threshold Guardian", essence:"You are not afraid of endings. That makes you one of the most valuable people in any room.", func:"You guide people through the hardest passages: endings, deaths, rebirths.", activation:"Walk through. What is on the other side is worth it.", ancestors:"Anubis weighed the heart against the feather. You are exactly that guardian.", element:"Water · West"},
+  {n:"XIV", deity:"Maat-Ra", name:"Temperance", role:"The Harmonizer", title:"The Harmonizer", essence:"You work with opposing forces until they become a single coherent thing. That is alchemy.", func:"You create coherence across moving parts: people, systems, timelines.", activation:"Trust the blend. What looks like contradiction is becoming something new.", ancestors:"The rainbow itself is alchemy. That is not compromise. That is the medicine the world is asking for.", element:"Water · West"},
+  {n:"XV", deity:"Set", name:"The Shadow (Devil)", role:"The Shadow Catalyst", title:"The Shadow Catalyst", essence:"You see what is hidden, the lie inside the structure, the fear inside the confidence. That vision is a gift, not a curse.", func:"You challenge false certainty, expose blind spots, and force the real conversations the New Earth must have.", activation:"Name the thing in the room. Your power lives where others turn away.", ancestors:"You carry the medicine that prevents collapse from within.", element:"Earth · North"},
+  {n:"XVI", deity:"Babel-Khem", name:"The Tower", role:"The System Breaker", title:"The System Breaker", essence:"You are drawn to structures that need to fall, not out of destruction, but out of the understanding that some foundations are false.", func:"You dismantle what is built on illusion, fear, or misalignment in service of what is real.", activation:"Let it collapse. What is true will survive.", ancestors:"The Seventh Fire was clear: the old structures would not survive the transition. You stand in the rubble and begin building again.", element:"Fire · South"},
+  {n:"XVII", deity:"Nut-Nera", name:"The Star", role:"The Vision Keeper", title:"The Vision Keeper", essence:"You hold hope when others have stopped. That is not naivete. It is the rarest form of leadership.", func:"You anchor the long-term possibility of the New Earth when everything short-term looks uncertain.", activation:"Keep the vision alive. It needs you to believe in it.", ancestors:"The elders held the vision of the rainbow across generations of hardship. The star does not waver. Neither do you.", element:"Air · East"},
+  {n:"XVIII", deity:"Khonsu", name:"The Moon", role:"The Intuitive Navigator", title:"The Intuitive Navigator", essence:"You navigate by feeling. What looks like uncertainty to others is a language you are fluent in.", func:"You work in the layers beneath logic: emotion, dream, subconscious current.", activation:"Trust the feeling, not the explanation. You already know.", ancestors:"The moon navigated sailors across oceans long before instruments existed. You carry a compass that logic cannot build.", element:"Water · West"},
+  {n:"XIX", deity:"Ra-Khepri", name:"The Sun", role:"The Activator", title:"The Activator", essence:"You make things visible, including yourself. Your clarity is contagious. Your presence is the activation.", func:"You energize people and projects by showing up fully and without reservation.", activation:"Be seen completely. Your light is not too much.", ancestors:"Ra-Khepri was the force that made life possible. You carry that medicine. Do not hide it.", element:"Fire · South"},
+  {n:"XX", deity:"Thoth-Anubis", name:"Judgment", role:"The Awakener", title:"The Awakener", essence:"You have heard the call. This is the moment you stop preparing and start becoming.", func:"You activate others into their purpose through example, through challenge, through the clarity of your own transformation.", activation:"Answer the call. Rise into what you are meant to become.", ancestors:"The Seventh Fire described a specific moment when the call would go out. You heard it. Answer it.", element:"Spirit · Centre"},
+  {n:"XXI", deity:"Nera", name:"The World", role:"The Living System", title:"The Living System", essence:"You have arrived, not at an end, but at an integration. Every part of the system lives in you now.", func:"You hold the whole: every role, every pathway, every tension. You bridge all the medicines into a single living system.", activation:"Embody the whole. You are not part of the system. You are the system.", ancestors:"The rainbow is not one color. It is all colors appearing together. You are the rainbow.", element:"Earth · North"}
 ];
 
 const QS = {
@@ -354,13 +383,13 @@ const QS = {
 
 const UI = {
   ES:{
-    langBtn:'🌐 ES', statusText:'Lectura IA activa', subtitle:'New Earth Role Activation · 2026',
-    tabOracle:'𓂀 Oracle', tabTarot:'⊹ Tarot',
+    langBtn:'🌐 ES', statusText:'CloudNera', subtitle:'New Earth Role Activation · 2026',
+    tabOracle:'𓂀 Oracle', tabTarot:'⊹ Templo',
     oracleStep1Tag:'Paso I · Identidad', lblName:'Tu Nombre', phName:'Escribe tu nombre...', lblBirth:'Fecha de Nacimiento', btnContinueOracle:'Continuar ✦',
     oracleStep2Tag:'Paso II · La Pregunta', oracleIntro:'El oráculo ha preparado una pregunta para ti.<br>Puedes editarla o escribir la tuya.', lblQuestionOracle:'Tu Pregunta',
     btnAnotherQuestion:'↺ Otra pregunta', btnBackOracle:'← Volver', btnConsultOracle:'Consultar el Oráculo ✦',
     btnNewOracleReading:'↺ Nueva Lectura', btnCopyOracle:'⎘ Copiar',
-    tarotTag:'Lectura de Tarot', lblTarotQuestion:'Tu Pregunta', phTarotQuestion:'✦ Escribe tu pregunta...', lblSpread:'Tirada',
+    tarotTag:'Lectura del Templo', lblTarotQuestion:'Tu Pregunta', phTarotQuestion:'✦ Escribe tu pregunta...', lblSpread:'Tirada',
     spread3:'3 Cartas', spread5:'5 Cartas', spread7:'7 Cartas', spread22:'22 Arcanos',
     btnDraw:'✦ Tirar Cartas', btnInterpret:'◈ READ', btnResetTarot:'↺ Reset', tarotResultHeader:'✦ LECTURA NERA ✦',
     btnCopyResult:'⎘ Copiar Resultado',
@@ -372,12 +401,12 @@ const UI = {
   },
   EN:{
     langBtn:'🌐 EN', statusText:'Nera Cloud active', subtitle:'New Earth Role Activation · 2026',
-    tabOracle:'𓂀 Oracle', tabTarot:'⊹ Tarot',
+    tabOracle:'𓂀 Oracle', tabTarot:'⊹ Templo',
     oracleStep1Tag:'Step I · Identity', lblName:'Your Name', phName:'Write your name...', lblBirth:'Birth Date', btnContinueOracle:'Continue ✦',
     oracleStep2Tag:'Step II · The Question', oracleIntro:'The oracle has prepared a question for you.<br>You can edit it or write your own.', lblQuestionOracle:'Your Question',
     btnAnotherQuestion:'↺ Another question', btnBackOracle:'← Back', btnConsultOracle:'Consult the Oracle ✦',
     btnNewOracleReading:'↺ New Reading', btnCopyOracle:'⎘ Copy',
-    tarotTag:'Tarot Reading', lblTarotQuestion:'Your Question', phTarotQuestion:'✦ Write your question...', lblSpread:'Spread',
+    tarotTag:'Temple Reading', lblTarotQuestion:'Your Question', phTarotQuestion:'✦ Write your question...', lblSpread:'Spread',
     spread3:'3 Cards', spread5:'5 Cards', spread7:'7 Cards', spread22:'22 Arcana',
     btnDraw:'✦ Draw Cards', btnInterpret:'◈ READ', btnResetTarot:'↺ Reset', tarotResultHeader:'✦ NERA READING ✦',
     btnCopyResult:'⎘ Copy Result',
@@ -390,7 +419,7 @@ const UI = {
 };
 
 let idioma = 'ES';
-let currentTab = 'oracle';
+let currentTab = 'tarot';
 let currentStep = 1;
 let tiradaActual = [];
 let oUser = {name:'', birth:''};
@@ -443,7 +472,7 @@ function applyLanguage(){
   document.getElementById('btnResetTarot').textContent = tx.btnResetTarot;
   document.getElementById('tarotResultHeader').textContent = tx.tarotResultHeader;
   document.getElementById('btnCopiar').textContent = tx.btnCopyResult;
-  document.getElementById('instrucciones').innerHTML = `<div class="inst-title">${tx.instructionsTitle}</div>${tx.instructions}`;
+  const pdfBtn=document.getElementById('btnPDF'); if(pdfBtn) pdfBtn.textContent = idioma==='ES' ? '⬇ Guardar PDF' : '⬇ Save PDF';
   if(!document.getElementById('step2').classList.contains('hidden') && !document.getElementById('oQuestion').value){ refreshQ(); }
 }
 
@@ -512,11 +541,12 @@ async function consultOracle(){
   oCardImg.src = './' + index + '.jpg';
   oCardImg.style.display = 'block';
   oCardImg.onerror = function () {
-    this.style.display = 'none';
+    if (this.src.endsWith('.jpg')) this.src = './' + index + '.png';
+    else this.style.display = 'none';
   };
 
-  document.getElementById('oArch').textContent = arc.title;
-  document.getElementById('oRole').textContent = `${arc.deity} · ${arc.role}`;
+  document.getElementById('oArch').textContent = `${arc.n} — ${arc.deity}`;
+  document.getElementById('oRole').textContent = `${arc.name} · ${arc.role}`;
 
   const labels=t().oracleLabels;
   const msg = `${oUser.name}, ${arc.essence}`;
@@ -580,19 +610,28 @@ function mostrarCartas(){
     const arc=ARCANAS[c-1];
     const div=document.createElement('div');
     div.className='carta';
-    div.style.animation='torbellino 4.5s forwards';
-    div.style.animationDelay=(i*0.08)+'s';
+    div.style.animation='torbellino 6.2s forwards';
+    div.style.animationDelay=(i*0.18)+'s';
     div.style.opacity='0';
-    div.onclick=()=>showCard(c-1);
+    div.dataset.revealed='0';
+    div.onclick=()=>{
+      if(div.dataset.revealed==='0'){
+        div.dataset.revealed='1';
+        div.classList.add('revealed');
+        nombre.style.display='block';
+        return;
+      }
+      showCard(c-1);
+    };
 
     const glow=document.createElement('div'); glow.className='carta-glow';
-    const img=document.createElement('img'); img.src='./'+c+'.png'; img.alt=arc.deity; img.onerror=function(){ this.style.display='none'; };
-    const sombra=document.createElement('div'); sombra.className='sombraCarta';
-    const nombre=document.createElement('div'); nombre.className='nombreCarta'; nombre.textContent=`${arc.n} · ${arc.deity}`;
+    const img=document.createElement('img'); img.src='./'+c+'.jpg'; img.alt=arc.deity; img.onerror=function(){ if(this.src.endsWith('.jpg')) this.src='./'+c+'.png'; else this.style.display='none'; };
+    const cover=document.createElement('img'); cover.className='coverCarta'; cover.src='./cover.jpg'; cover.alt='Cover';
+    cover.onerror=function(){ this.style.display='none'; };
+    const nombre=document.createElement('div'); nombre.className='nombreCarta'; nombre.textContent=`${arc.n} — ${arc.deity} — ${arc.name} — ${arc.role}`;
 
-    div.appendChild(glow); div.appendChild(img); div.appendChild(sombra); div.appendChild(nombre);
+    div.appendChild(glow); div.appendChild(img); div.appendChild(cover); div.appendChild(nombre);
     cont.appendChild(div);
-    setTimeout(()=>{ nombre.style.display='block'; }, 5400 + i*80);
   });
 }
 
@@ -601,8 +640,8 @@ function showCard(idx){
   const labels=t().cardLabels;
   document.getElementById('cardContent').innerHTML = `
     <div class="cd-num">· ${a.n} · ${a.deity} ·</div>
-    <div class="cd-name">${a.name}</div>
-    <div class="cd-sub">${a.title} · ${a.role}</div>
+    <div class="cd-name">${a.deity}</div>
+    <div class="cd-sub">${a.name} · ${a.role}</div>
     <div class="cd-block"><span class="cd-lbl">${labels.essence}</span><div class="cd-txt">${a.essence}</div></div>
     <div class="cd-block"><span class="cd-lbl">${labels.func}</span><div class="cd-txt">${a.func}</div></div>
     <div class="cd-activ">✦ ${a.activation}</div>
@@ -626,7 +665,7 @@ async function interpretar(){
   setLoading(resT);
 
   const nombres = tiradaActual.map(c =>
-    ARCANAS[c-1].name + ' (' + ARCANAS[c-1].title + ')'
+    ARCANAS[c-1].n + ' — ' + ARCANAS[c-1].deity + ' — ' + ARCANAS[c-1].name + ' — ' + ARCANAS[c-1].role
   );
 
   try{
@@ -662,6 +701,47 @@ function copyTarot(){
   setTimeout(()=> b.textContent = t().btnCopyResult, 1800);
 }
 
+
+function exportReadingPDF(){
+  const pregunta = document.getElementById('pregunta').value.trim() || t().generalReading;
+  const lectura = document.getElementById('resultadoTexto').innerText.trim();
+  const cartas = tiradaActual.map(c => {
+    const a = ARCANAS[c-1];
+    return `${a.n} — ${a.deity} — ${a.title}`;
+  }).join('\n');
+
+  if(!tiradaActual.length){ alert(t().alertDraw); return; }
+
+  const contenido = `NERA CloudNera\n\nPregunta:\n${pregunta}\n\nCartas:\n${cartas}\n\nLectura:\n${lectura || 'Lectura pendiente.'}`;
+
+  if(window.jspdf && window.jspdf.jsPDF){
+    const { jsPDF } = window.jspdf;
+    const doc = new jsPDF({unit:'pt', format:'letter'});
+    const margin = 44;
+    let y = 54;
+    doc.setFont('times','bold');
+    doc.setFontSize(18);
+    doc.text('NERA CloudNera', margin, y);
+    y += 28;
+    doc.setFont('times','normal');
+    doc.setFontSize(12);
+    const lines = doc.splitTextToSize(contenido.replace('NERA CloudNera\n\n',''), 520);
+    lines.forEach(line => {
+      if(y > 740){ doc.addPage(); y = 54; }
+      doc.text(line, margin, y);
+      y += 16;
+    });
+    doc.save('lectura-nera.pdf');
+    return;
+  }
+
+  const w = window.open('', '_blank');
+  w.document.write(`<pre style="font-family:serif;white-space:pre-wrap;line-height:1.6">${contenido.replace(/[&<>]/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;'}[m]))}</pre>`);
+  w.document.close();
+  w.focus();
+  w.print();
+}
+
 function resetear(){
   tiradaActual=[];
   document.getElementById('cartas').innerHTML='';
@@ -672,7 +752,7 @@ function resetear(){
 }
 
 applyLanguage();
-showTab('oracle');
+showTab('tarot');
 updateDots();
 </script>
 </body>
