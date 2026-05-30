@@ -606,7 +606,7 @@ for(let p=0;p<4;p++){
   }
 }
 
-const FULL_DECK = [...ARCANOS_NERA, ...ARCANOS_MAYORES, ...ARCANOS_MENORES];
+const FULL_DECK = [...ARCANAS_NERA, ...ARCANOS_MAYORES, ...ARCANOS_MENORES];
 
 /* ── POSITION LABELS ── */
 const SPREAD_POSITIONS = {
@@ -965,7 +965,7 @@ function mostrarCartas(){
     const real=document.createElement('img');
     real.className='real-carta';
     real.style.height=ch+'px';
-    const imgIdx=tiradaActual.indexOf(cIdx)+1;
+    const imgIdx=cIdx+1;
     real.src='./'+imgIdx+'.jpg';
     real.alt=arc.deity||arc.name;
     real.onerror=function(){if(this.dataset.triedPng!=='1'){this.dataset.triedPng='1';this.src='./'+imgIdx+'.png';}else{this.style.display='none';}};
@@ -988,9 +988,9 @@ function mostrarCartas(){
     nombre.className='nombre-carta';
     nombre.textContent=arc.suit?`${arc.n} · ${arc.suit}`:`${arc.n} — ${arc.deity||arc.name}`;
 
-    const revealDelay=7600+(i*180);
+    const revealDelay=2000+(i*200);
     setTimeout(()=>{div.dataset.revealed='1';div.classList.add('revealed');nombre.style.display='block';},revealDelay);
-    div.onclick=()=>{if(div.dataset.revealed==='1')showCard(cIdx,deck);};
+    div.onclick=()=>{if(div.dataset.revealed==='1')showCard(cIdx,getDeck());};
 
     div.appendChild(glow);
     div.appendChild(real);
@@ -1116,4 +1116,3 @@ selectSpread(document.querySelector('.spread-card[data-n="1"]'),1);
 </script>
 </body>
 </html>
-
